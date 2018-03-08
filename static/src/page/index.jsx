@@ -27,4 +27,3 @@ class App extends Component {
 }
 export default App;
 
-git@github.com:signiliance/product.git
