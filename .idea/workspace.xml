@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b57b2a2-09a2-42eb-aa86-53bdc6cd112f" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lianxi/.idea/workspace.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -78,8 +79,8 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="320">
+              <caret line="16" column="35" lean-forward="true" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -208,11 +209,6 @@
               <item name="licaibao" type="b2602c69:ProjectViewProjectNode" />
               <item name="licaibao" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="licaibao" type="b2602c69:ProjectViewProjectNode" />
-              <item name="licaibao" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -258,12 +254,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519873503904</updated>
       <workItem from="1519873505367" duration="1435000" />
-      <workItem from="1520321955360" duration="41645000" />
+      <workItem from="1520321955360" duration="41754000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43080000" />
+    <option name="totallyTimeSpent" value="43189000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -658,8 +654,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="320">
+          <caret line="16" column="35" lean-forward="true" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
           <folding />
         </state>
       </provider>
