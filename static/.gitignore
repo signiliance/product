@@ -16,6 +16,16 @@
 .env.test.local
 .env.production.local
 
+build
+node_modules
+.DS_Store
+.vscode
+.idea
+.nouse
+*.log
+yarn.lock
+package-lock.json
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
