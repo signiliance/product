@@ -1,8 +1,10 @@
 
+
 class Controller {
     async login (ctx) {
-        ctx.body = {
-            login: true
-        }
+       let pass = await dbhandle.get(ctx.request.body.userName);
+       if(pass == ctx.request.passWord){
+            let token = '';
+       }
     }
 }

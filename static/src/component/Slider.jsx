@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router';
-import logoImg from '../style/imgs/logo.png';
+import logoImg from '../style/imgs/logo@2x.png';
 
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -59,24 +59,18 @@ class SiderBarCustom extends Component {
                     mode="inline"
                     selectedKeys={[selectedKey]}
                 >
-                    <Menu.Item key="/order">
-                        <Link to={'/order'}><Icon type="upload" /><span className="nav-text">上传工资单</span></Link>
+                    <Menu.Item key="/product">
+                        <Link to={'/product'}><Icon type="appstore" /><span className="nav-text">公司产品</span></Link>
                     </Menu.Item>
-                    <Menu.Item key="/business">
-                        <Link to={'/business'}><Icon type="solution" /><span className="nav-text">业务订单查询</span></Link>
+                    <Menu.Item key="/companny">
+                        <Link to={'/companny'}><Icon type="appstore" /><span className="nav-text">关于我们</span></Link>
                     </Menu.Item>
-                    <Menu.Item key="/account">
-                        <Link to={'/account'}><Icon type="user" /><span className="nav-text">账户查询</span></Link>
-                    </Menu.Item>
-                    <Menu.Item key="/third">
-                        <Link to={'/third'}><Icon type="team" /><span className="nav-text">第三方订单查询</span></Link>
-                    </Menu.Item>
-                    <SubMenu key="/wage" title={<span><Icon type="bars" /><span>财务对账明细</span></span>}>
-                        <Menu.Item key="/wage">
-                            <Link to={'/wage'}><Icon type="menu-unfold" /><span className="nav-text">工资流水</span></Link>
+                    <SubMenu key = '/aboutme'  title={<span><Icon type="appstore" /><span>个人中心</span></span>}>
+                        <Menu.Item key="/aboutme">
+                            <Link to={'/aboutme'}><Icon type="bars" /><span className="nav-text">我的理财</span></Link>
                         </Menu.Item>
-                        <Menu.Item key="/withdraw">
-                            <Link to={'/withdraw'}><Icon type="menu-unfold" /><span className="nav-text">提现明细</span></Link>
+                        <Menu.Item key="/changepwd">
+                            <Link to={'/changepwd'}><Icon type="bars" /><span className="nav-text">修改密码</span></Link>
                         </Menu.Item>
                     </SubMenu>
                 </Menu>
