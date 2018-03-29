@@ -15,7 +15,7 @@ class MyProduct extends Component {
     render () {
         const { data }  = this.state;
         return(
-          <div>111</div>
+          <div></div>
         )
     }
 
