@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Input, Form, Icon, Button} from 'antd';
-
+import {Input, Form, Icon, Button, message} from 'antd';
+import { changepass } from '../../fetch/index';
 
 const FormItem = Form.Item;
 
@@ -11,8 +11,11 @@ class ChangePass extends Component {
 
     handleSubmit = () => {
         const { validateFields } = this.props.form;
-
-
+        const form = this.props.form.getFieldsValue();
+        //console.log(form);
+        changepass({newPass: form.passport, oldPass: form.passport_old}).then((data)=>{
+            console.log(data);
+        })
     }
 
     checkPassword = (rule, value, callback) => {

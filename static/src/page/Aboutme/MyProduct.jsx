@@ -15,7 +15,9 @@ class MyProduct extends Component {
     render () {
         const { data }  = this.state;
         return(
-          <div></div>
+          <div style={{display:'flex'}}>
+
+          </div>
         )
     }
 
