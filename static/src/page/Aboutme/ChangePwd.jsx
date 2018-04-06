@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Input, Form, Icon, Button, message} from 'antd';
 import { changepass } from '../../fetch/index';
+import { browserHistory } from 'react-router'
 
 const FormItem = Form.Item;
 
@@ -14,7 +15,14 @@ class ChangePass extends Component {
         const form = this.props.form.getFieldsValue();
         //console.log(form);
         changepass({newPass: form.passport, oldPass: form.passport_old}).then((data)=>{
-            console.log(data);
+            if(data.code === 200) {
+                message.success('修改成功');
+                browserHistory.push('/');
+            }else{
+                message.error('修改失败');
+            }
+        }).catch(err => {
+            console.log(err);
         })
     }
 
@@ -31,6 +39,10 @@ class ChangePass extends Component {
         } else {
             return callback('请勿输入空格，位数介于8-30位之间');
         }
+    }
+
+    chanel = () => {
+        browserHistory.push('/')
     }
 
     render() {
@@ -56,7 +68,7 @@ class ChangePass extends Component {
                 </Form>
                 <div style = {{textAlign:'right'}}>
                 <Button type='primary' onClick={this.handleSubmit}>确认</Button>
-                <Button type='primary' style={{marginLeft: 20,marginRight: 50}}>取消</Button>
+                <Button type='primary' style={{marginLeft: 20,marginRight: 50}} onClick={this.chanel}>取消</Button>
                 </div>
             </div>
         )

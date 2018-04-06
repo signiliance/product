@@ -10,7 +10,6 @@ const { Content, Footer }  = Layout;
 
 class App extends Component {
     componentWillMount(){
-        console.log(HeaderCustom)
     }
     render () {
         const {routers} = this.props;

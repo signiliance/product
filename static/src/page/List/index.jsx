@@ -1,16 +1,26 @@
 import React, {Component} from 'react';
-import {Row, Col, Table, Button } from 'antd';
-
+import {Row, Col, Table, Button, Modal, message } from 'antd';
+import { buyprod,getprodlist } from '../../fetch/index';
+import { getTime } from '../../util';
 
 class ProduceIndex extends Component {
     state = {
-        list: [{
-            prodId:'1111',
-            preEarn: '5%',
-            buyTime: '5个月',
-            from: '理财宝',
-        }],
+            list: [{
+                prodId:'1111',
+                preEarn: '5%',
+                buyTime: '5个月',
+                from: '理财宝',
+            },{
+                prodId:'122111',
+                preEarn: '533%',
+                buyTime: '5个月',
+                from: '理财宝',
+            }
+            ],
+            visible: false,
+            buyProdId: ''
     }
+
     colums = [
         {
             title: '产品代号',
@@ -40,12 +50,63 @@ class ProduceIndex extends Component {
             dataIndex: 'buy',
             key: 'buy',
             render: (text, record) => (
-                <Button type='primary'>购买</Button>
+                <Button type='primary' onClick={this.buy.bind(this,record.prodId)}>购买</Button>
             ),
         }
     ]
-    componentWillMount() {
+    componentWillMount(){
+        getprodlist().then((data)=>{
+            if(data.code == '200'){
+                if( data.list != '') {
+                    this.setState({
+                        list: data.list,
+                    })
+                }
+            }else {
+                message.error('未查询到结果');
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
+    handleOk = () => {
+        this.setState({
+            visible: false,
+        })
+        buyprod({buyProdId: this.state.buyProdId,buyTime: getTime()}).then((data) => {
+            if(data.code == 200) {
+                message.success('购买成功');
+            }else{
+                message.error('购买失败');
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+    buy = (prodId) => {
+        this.setState({
+            visible: true,
+            buyProdId: prodId,
+        })
+    }
+    handleCancel = (e) => {
+        this.setState({
+            visible: false,
+        })
+    }
+    renderModal = () => {
+            return(
+            <Modal title="购买提醒"
+                   visible={this.state.visible}
+                   okText='确认'
+                   cancelText='取消'
+                   onOk={this.handleOk}
+                   onCancel={this.handleCancel}
+            >
+                确认购买代号为&nbsp;&nbsp;<span style={{color:'red',fontSize:22}}>{this.state.buyProdId}</span>&nbsp;&nbsp;的理财产品吗
+            </Modal>
+            )
     }
 
     render() {
@@ -54,13 +115,13 @@ class ProduceIndex extends Component {
                 <Row>
                     <Col span = {12}>
                         <div className='content' style = {{fontSize: 16,marginTop: 40,overflow:'hidden'}}>
-                            平台成立超过<span style={{fontSize: 26,color: 'red'}}>11</span>年,超过<span style={{fontSize: 26,color: 'red'}}>98</span>%的平台，理财用户超过<span style={{fontSize: 26,color: 'red'}}>200</span>万，超过<span style={{fontSize: 26,color: 'red'}}>98</span>%的平台<br/>
+                            平台成立超过<span style={{fontSize: 26,color: 'red'}}>11</span>年,超过<span style={{fontSize: 26,color: 'red'}}>98</span>%的平台，理财用户超过<span style={{fontSize: 26,color: 'red'}}>2000</span>万，超过<span style={{fontSize: 26,color: 'red'}}>98</span>%的平台<br/>
                             <span style={{float:'right',color:'red',fontSize:12}}>数据提取于2018年1月</span>
                         </div>
                     </Col>
                     <Col span = {12}>
                         <div className='content' style = {{fontSize: 16,marginTop: 40,marginLeft:20,overflow:'hidden'}}>
-                            促成理财<span style={{fontSize: 26,color: 'red'}}>2689</span>万，超过<span style={{fontSize: 26,color: 'red'}}>99</span>%平台，用户受益不低于<span style={{fontSize: 26,color: 'red'}}>5</span>%，高于<span style={{fontSize: 26,color: 'red'}}>99</span>%平台<br/>
+                            促成理财<span style={{fontSize: 26,color: 'red'}}>12689</span>万，超过<span style={{fontSize: 26,color: 'red'}}>99</span>%平台，用户受益不低于<span style={{fontSize: 26,color: 'red'}}>5</span>%，高于<span style={{fontSize: 26,color: 'red'}}>99</span>%平台<br/>
                             <span style={{float:'right',color:'red',fontSize:12}}>数据提取于2018年1月</span>
                         </div>
                     </Col>
@@ -84,6 +145,7 @@ class ProduceIndex extends Component {
                     columns={this.colums}
                     dataSource={this.state.list}
                 ></Table>
+                    {this.renderModal()}
                 </div>
             </div>
         )

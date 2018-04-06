@@ -38,7 +38,10 @@ class LoginPageBase extends Component {
             Cookies.save('ssss','11111');
             const form = this.props.form.getFieldsValue();
             login(form).then((data) => {
-                console.log(data);
+               if(data.code == '200') {
+                   Cookies.set('operName',data.operName);
+                   Cookies.set('operNum',data.operNum);
+               }
             }).catch(err => {
                 console.log(err);
             })

@@ -65,6 +65,9 @@ class SiderBarCustom extends Component {
                     <Menu.Item key="/companny">
                         <Link to={'/companny'}><Icon type="appstore" /><span className="nav-text">关于我们</span></Link>
                     </Menu.Item>
+                    <Menu.Item key="/manage">
+                        <Link to={'/manage'}><Icon type="appstore" /><span className="nav-text">个性理财推荐</span></Link>
+                    </Menu.Item>
                     <SubMenu key = '/aboutme'  title={<span><Icon type="appstore" /><span>个人中心</span></span>}>
                         <Menu.Item key="/aboutme">
                             <Link to={'/aboutme'}><Icon type="bars" /><span className="nav-text">我的理财</span></Link>
