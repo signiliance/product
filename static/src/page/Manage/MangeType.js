@@ -24,3 +24,9 @@ MangeType.precent = [
     {code: 6, name: '10%'},
 ]
 
+MangeType.danger = [
+    {code: 0, name: '全部'},
+    {code: 1, name: '高'},
+    {code: 2, name: '中'},
+    {code: 3, name: '低'},
+]

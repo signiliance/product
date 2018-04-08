@@ -51,6 +51,11 @@ class Managee extends Component {
             key: 'buyTime'
         },
         {
+            title: '风险',
+            dataIndex: 'danger',
+            key: 'danger'
+        },
+        {
             title: '来源',
             dataIndex: 'from',
             key: 'from'
@@ -71,8 +76,8 @@ class Managee extends Component {
         const { getFieldsValue } = this.props.form;
         let formData = getFieldsValue();
         let params = {...formData};
-        if(formData.getMonth === '' || formData.getPrecent === '') {
-            message.error('收益时间和收益百分比都是必填项');
+        if(formData.getMonth === '' || formData.getPrecent === '' || formData.getDanger === '') {
+            message.error('收益时间，收益百分比，承受风险能力都是必填项');
         }else {
             searchlist(params).then((data)=>{
                 if(data.code == '200'){
@@ -167,6 +172,19 @@ class Managee extends Component {
                                     {(MangeType.precent || []).map(item=><Option key={item.code}>{item.name}</Option>)}
                                 </Select>)}
                             </FormItem>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span={11}>
+                                <FormItem {...formItemLayout1} label="承受风险能力">
+                                    { getFieldDecorator('getDanger', {
+                                        rules: [{ required: true, message: '请选择承受风险能力'}],
+                                        initialValue: ''
+                                    })(<Select placeholder="请选择承受风险能力">
+                                        <Option value="">请选择承受风险能力</Option>
+                                        {(MangeType.danger || []).map(item=><Option key={item.code}>{item.name}</Option>)}
+                                    </Select>)}
+                                </FormItem>
                             </Col>
                         </Row>
                         <Row style={{textAlign: 'right'}}>

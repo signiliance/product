@@ -9,11 +9,14 @@ class ProduceIndex extends Component {
                 prodId:'1111',
                 preEarn: '5%',
                 buyTime: '5个月',
+                danger:'低',
+                needTime:'2018-5-14',
                 from: '理财宝',
             },{
                 prodId:'122111',
                 preEarn: '533%',
                 buyTime: '5个月',
+                danger:'高',
                 from: '理财宝',
             }
             ],
@@ -39,6 +42,16 @@ class ProduceIndex extends Component {
             title: '购买时长',
             dataIndex: 'buyTime',
             key: 'buyTime'
+        },
+        {
+            title: '风险',
+            dataIndex: 'danger',
+            key: 'danger'
+        },
+        {
+            title: '可购买日期',
+            dataIndex: 'needTime',
+            key: 'needTime'
         },
         {
             title: '来源',
