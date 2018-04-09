@@ -1,20 +1,29 @@
 const mysql = require('mysql');
 
-const connection = mysql.createConnection({
-    connectionLimit : 10,
-    host: '127.0.0.1',
+
+const pool = mysql.createPool({
+    connectionLimit: 100,
+    host: 'localhost',
     user: 'root',
-    password: '123',
+    password: 'nuli1234',
     database: 'licaibao'
-})
+});
 
-connection.connect();
+const DBhandle = module.exports = {};
 
-export async function set(sql){
-
-        connection.query(sql,(error,result,fields) => {
-            if(error) throw error;
-            return
+DBhandle.query = (sql, params = []) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                return reject(err);
+            }
+            connection.query(sql, params, (err, result) => {
+                connection.release();
+                if (err) {
+                    return reject(err);
+                }
+                resolve(result);
+            });
         });
-
-}
+    });
+};
