@@ -7,7 +7,9 @@ export const login = (form = {}) => {
     return fetch(API.loginUrl,{
         credentials: 'include',
         method: 'POST',
+        mode: 'cors',
         headers: {
+            "Origin": '*',
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
         body: buildParams(form)
@@ -18,6 +20,7 @@ export const changepass = (form = {}) => {
         credentials: 'include',
         method: 'POST',
         headers: {
+            "Origin": '*',
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
         body: buildParams(form)
@@ -28,15 +31,21 @@ export const buyprod = (form = {}) => {
         credentials: 'include',
         method: 'POST',
         headers: {
+            "Origin": '*',
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
         body: buildParams(form)
     }).then((res) => res.json()).catch(err => console.log(err))
 }
-export const getprodlist = () => {
+export const getprodlist = (form = {}) => {
     return fetch(API.prodlist,{
         credentials: 'include',
-        method: 'GET',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
     }).then((res) => res.json()).catch(err => console.log(err))
 }
 export const getmoney = (form = {}) => {
@@ -44,6 +53,7 @@ export const getmoney = (form = {}) => {
         credentials: 'include',
         method: 'POST',
         headers: {
+            "Origin": '*',
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
         body: buildParams(form)
@@ -61,6 +71,7 @@ export const searchlist = (form = {}) => {
         credentials: 'include',
         method: 'POST',
         headers: {
+            "Origin": '*',
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
         body: buildParams(form)

@@ -34,7 +34,22 @@ export const buildParams = (data) => {
 
 export const getTime = () => {
     const date = new Date();
-    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    const year = date.getFullYear();
+    let month;
+    if(date.getMonth() < 9) {
+        month = `0${date.getMonth()+1}`
+    }else {
+        month = date.getMonth()+1;
+
+    }
+    let day;
+    if(date.getDate() < 10) {
+        day = `0${date.getDate()}`;
+    }
+    else {
+        day = date.getDate();
+    }
+    return `${year}${month}${day}`
 }
 
 // 解决js浮点数计算不精确的问题
@@ -56,4 +71,8 @@ export const minus = (num1,num2) => {
     const num2Digits = (num2.toString().split('.')[1] || '').length;
     const baseNum = Math.pow(10, Math.max(num1Digits, num2Digits));
     return (num1 * baseNum - num2 * baseNum) / baseNum;
+}
+
+export const isInt = (a) => {
+    return typeof a === 'number' && a%1 === 0;
 }

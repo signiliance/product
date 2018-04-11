@@ -1,9 +1,9 @@
 import React ,{Component} from 'react';
 //import {connect} from 'react-redux';
 import { Row, Col, Form, Input, Button, Icon, message } from 'antd';
-//import ''
+import { browserHistory } from 'react-router'
 import loginImg from '../../style/imgs/login.jpg';
-import Cookies from 'react-cookies';
+import {setCookie, getCookie} from "../../util";
 import {login} from '../../fetch/index';
 import 'antd/dist/antd.css'
 
@@ -35,12 +35,16 @@ class LoginPageBase extends Component {
             if(err) {
                 console.log(err);
             }
-            Cookies.save('ssss','11111');
             const form = this.props.form.getFieldsValue();
+            console.log(form);
             login(form).then((data) => {
-               if(data.code == '200') {
-                   Cookies.set('operName',data.operName);
-                   Cookies.set('operNum',data.operNum);
+               if(data.code === 200) {
+                   setCookie('userName',encodeURIComponent(data.data.username));
+                   setCookie('usertype',data.data.usertype);
+                   setCookie('userid',data.data.userid);
+                   browserHistory.push('/');
+               }else {
+                   message.error(data.message);
                }
             }).catch(err => {
                 console.log(err);
@@ -57,7 +61,7 @@ class LoginPageBase extends Component {
                     <div style={styles.title}>登陆</div>
                     <Form layout="horizontal" onSubmit={this.handleSubmit}>
                         <FormItem style={{width: '100%', marginBottom: 5}}>
-                            {getFieldDecorator('operAccount', {
+                            {getFieldDecorator('userid', {
                                 rules: [{required: true, message: '请输入用户名'}],
                             })(
                                 <Input addonBefore={<Icon type="user"/>} placeholder="请输入用户名" style={{width: '100%'}}/>,

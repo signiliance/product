@@ -16,10 +16,10 @@ class ChangePass extends Component {
         //console.log(form);
         changepass({newPass: form.passport, oldPass: form.passport_old}).then((data)=>{
             if(data.code === 200) {
-                message.success('修改成功');
+                message.success(data.message);
                 browserHistory.push('/');
             }else{
-                message.error('修改失败');
+                message.error(data.message);
             }
         }).catch(err => {
             console.log(err);

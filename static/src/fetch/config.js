@@ -1,17 +1,19 @@
 
+const api = 'http://127.0.0.1:3001'
+
 export default {
     //登录
-    loginUrl: '/login',
+    loginUrl: api+'/login',
     //修改密码
-    changepassword: '/changePassword',
+    changepassword: api+'/changepassword',
     //购买理财产品
-    buyprod: '/buyprod',
+    buyprod: api+'/buyprod',
     // 理财产品列表
-    prodlist: '/prodlist',
+    prodlist: api+'/prodlist',
     // 获取收益
-    getmoney: '/getmoney',
+    getmoney: api+'/getmoney',
     // 获取已购买列表
-    getmoneylist: '/getmoneylist',
+    getmoneylist: api+'/getmoneylist',
     //推荐查询
-    searchlist: '/searchlist'
+    searchlist: api+'/searchlist'
 }

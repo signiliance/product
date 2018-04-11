@@ -12,10 +12,10 @@ import { getCookie } from "../util/index";
 
 export default class Routers extends Component {
     requireAuth = (permission, component) => {
-        let token = getCookie('token');
-        let operName = getCookie('operName');
-        let operAccount = getCookie('operAccount');
-        if(!token || !operName || !operAccount) browserHistory.replace('/login');
+        let token = getCookie('username');
+        let operName = getCookie('usertype');
+        let operAccount = getCookie('userdangertype');
+        if(!token || !operName || !operAccount) browserHistory.push('/userlogin');
         return component;
     }
     render() {
@@ -29,7 +29,7 @@ export default class Routers extends Component {
                     <Route path={'aboutme'} component={MyProduct} />
                     <Route path={'manage'} component={Manage} />
                 </Route>
-                <Route path={'/login'} component={LoginPage} />
+                <Route path={'/userlogin'} component={LoginPage}/>
                 <Route path={'/404'} component={NotFound} />
                 <Route path="*" component={NotFound} />
             </Router>

@@ -1,25 +1,14 @@
 import React, {Component} from 'react';
-import {Row, Col, Table, Button, Modal, message } from 'antd';
+import {Row, Col, Table, Button, Modal, message, Input } from 'antd';
 import { buyprod,getprodlist } from '../../fetch/index';
 import { getTime } from '../../util';
+import listUtil from './listUtil';
+import  Base  from '../../component/Base.js';
+import {getCookie,isInt} from '../../util'
 
 class ProduceIndex extends Component {
     state = {
-            list: [{
-                prodId:'1111',
-                preEarn: '5%',
-                buyTime: '5个月',
-                danger:'低',
-                needTime:'2018-5-14',
-                from: '理财宝',
-            },{
-                prodId:'122111',
-                preEarn: '533%',
-                buyTime: '5个月',
-                danger:'高',
-                from: '理财宝',
-            }
-            ],
+            list: '',
             visible: false,
             buyProdId: ''
     }
@@ -27,48 +16,57 @@ class ProduceIndex extends Component {
     colums = [
         {
             title: '产品代号',
-            dataIndex: 'prodId',
-            key: 'prodId',
+            dataIndex: 'prodid',
+            key: 'prodid',
             render: (text, record) => (
                 <span style={{color:'red'}}>{text}</span>
             ),
         },
         {
+            title: '产品名称',
+            dataIndex: 'prodname',
+            key: 'prodname'
+        },
+        {
             title: '预期收益',
-            dataIndex: 'preEarn',
-            key: 'preEarn'
+            dataIndex: 'income',
+            key: 'income',
+            render: (text) => ( <span>{`${text-1}%`}</span>)
         },
         {
             title: '购买时长',
-            dataIndex: 'buyTime',
-            key: 'buyTime'
+            dataIndex: 'needbuytime',
+            key: 'needbuytime'
         },
         {
             title: '风险',
-            dataIndex: 'danger',
-            key: 'danger'
+            dataIndex: 'dangertype',
+            key: 'dangertype',
+            render:(text) => (
+                <span>{listUtil.table(text)}</span>
+            )
         },
         {
             title: '可购买日期',
             dataIndex: 'needTime',
-            key: 'needTime'
-        },
-        {
-            title: '来源',
-            dataIndex: 'from',
-            key: 'from'
+            key: 'needTime',
+            render: (text,record) => (
+                <span>{listUtil.time(record.startbuytime,record.endbuytime)}</span>
+            )
         },
         {
             title: '购买',
             dataIndex: 'buy',
             key: 'buy',
             render: (text, record) => (
-                <Button type='primary' onClick={this.buy.bind(this,record.prodId)}>购买</Button>
+                <Button type='primary' onClick={this.buy.bind(this,record.prodname,record.prodid)}>购买</Button>
             ),
         }
     ]
     componentWillMount(){
-        getprodlist().then((data)=>{
+        let form = {};
+        form.usertype = getCookie('usertype')
+        getprodlist(form).then((data)=>{
             if(data.code == '200'){
                 if( data.list != '') {
                     this.setState({
@@ -76,7 +74,7 @@ class ProduceIndex extends Component {
                     })
                 }
             }else {
-                message.error('未查询到结果');
+                Base.ModFail('tips','未查询到结果');
             }
         }).catch(err => {
             console.log(err);
@@ -87,20 +85,31 @@ class ProduceIndex extends Component {
         this.setState({
             visible: false,
         })
-        buyprod({buyProdId: this.state.buyProdId,buyTime: getTime()}).then((data) => {
-            if(data.code == 200) {
-                message.success('购买成功');
-            }else{
-                message.error('购买失败');
-            }
-        }).catch(err => {
-            console.log(err);
-        })
+        const userid = getCookie('userid');
+        if(this.state.buyMoney >= 100 && isInt(this.state.buyMoney)) {
+            buyprod({
+                userid:userid,
+                buyProdId: this.state.buyProdId,
+                buyTime: getTime(),
+                buymoney: this.state.buyMoney
+            }).then((data) => {
+                if (data.code == 200) {
+                    message.success('购买成功');
+                } else {
+                    message.error(data.message);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+        }else {
+            Base.ModFail('tips','购买金额必须是整数且大于100');
+        }
     }
-    buy = (prodId) => {
+    buy = (prodname,prodid) => {
         this.setState({
             visible: true,
-            buyProdId: prodId,
+            buyProdname: prodname,
+            buyProdId: prodid
         })
     }
     handleCancel = (e) => {
@@ -108,6 +117,12 @@ class ProduceIndex extends Component {
             visible: false,
         })
     }
+    getValue = (e) => {
+        this.setState({
+            buyMoney: Number(e.target.value)
+        })
+    }
+
     renderModal = () => {
             return(
             <Modal title="购买提醒"
@@ -117,7 +132,8 @@ class ProduceIndex extends Component {
                    onOk={this.handleOk}
                    onCancel={this.handleCancel}
             >
-                确认购买代号为&nbsp;&nbsp;<span style={{color:'red',fontSize:22}}>{this.state.buyProdId}</span>&nbsp;&nbsp;的理财产品吗
+                确认购买&nbsp;&nbsp;<span style={{color:'red',fontSize:22}}>{this.state.buyProdname}</span>&nbsp;&nbsp;吗?
+                <p style={{marginTop: 10}}>购买金额：</p> <Input onChange={this.getValue}/>
             </Modal>
             )
     }
@@ -154,10 +170,11 @@ class ProduceIndex extends Component {
                     </Col>
                 </Row>
                 <div style = {{marginTop: 20}}>
-                <Table
-                    columns={this.colums}
-                    dataSource={this.state.list}
-                ></Table>
+                    {this.state.list && <Table
+                        columns={this.colums}
+                        dataSource={this.state.list}
+                    ></Table>
+                    }
                     {this.renderModal()}
                 </div>
             </div>
