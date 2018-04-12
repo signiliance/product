@@ -13,7 +13,11 @@ export default {
     // 获取收益
     getmoney: api+'/getmoney',
     // 获取已购买列表
-    getmoneylist: api+'/getmoneylist',
+    myprodlist: api+'/myprodlist',
     //推荐查询
-    searchlist: api+'/searchlist'
+    searchlist: api+'/searchlist',
+    //充值
+    chongzhi: api+'/chongzhi',
+    //提现
+    tixian: api+'/tixian',
 }

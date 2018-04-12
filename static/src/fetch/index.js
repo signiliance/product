@@ -59,15 +59,44 @@ export const getmoney = (form = {}) => {
         body: buildParams(form)
     }).then((res) => res.json()).catch(err => console.log(err))
 }
-export const getmoneylist = () => {
-    return fetch(API.getmoneylist,{
+export const getmoneylist = (form = {}) => {
+    return fetch(API.myprodlist,{
         credentials: 'include',
-        method: 'GET',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
     }).then((res) => res.json()).catch(err => console.log(err))
 }
 
 export const searchlist = (form = {}) => {
     return fetch(API.searchlist,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+
+export const chongzhi = (form = {}) => {
+    return fetch(API.chongzhi,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+
+export const tixian = (form = {}) => {
+    return fetch(API.tixian,{
         credentials: 'include',
         method: 'POST',
         headers: {

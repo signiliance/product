@@ -21,6 +21,15 @@ module.exports = function () {
         if(ctx.url === '/buyprod' && ctx.method === 'POST') {
             ctx.body = await Controller.buyprod(ctx);
         }
+        if(ctx.url === '/myprodlist' && ctx.method === 'POST') {
+            ctx.body = await Controller.myprodlist(ctx);
+        }
+        if(ctx.url === '/chongzhi' && ctx.method === 'POST'){
+            ctx.body = await Controller.chongzhi(ctx);
+        }
+        if(ctx.url === '/tixian' && ctx.method === 'POST'){
+            ctx.body = await Controller.tixian(ctx);
+        }
         await next();
     }
 }

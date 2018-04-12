@@ -28,6 +28,14 @@ class ProduceIndex extends Component {
             key: 'prodname'
         },
         {
+            title: '产品类型',
+            dataIndex: 'prodtype',
+            key: 'prodtype',
+            render:(text) => (
+                <span>{listUtil.prod(text)}</span>
+            )
+        },
+        {
             title: '预期收益',
             dataIndex: 'income',
             key: 'income',
@@ -36,7 +44,10 @@ class ProduceIndex extends Component {
         {
             title: '购买时长',
             dataIndex: 'needbuytime',
-            key: 'needbuytime'
+            key: 'needbuytime',
+            render: (text) => (
+                <span>{text}个月</span>
+            )
         },
         {
             title: '风险',
@@ -94,7 +105,7 @@ class ProduceIndex extends Component {
                 buymoney: this.state.buyMoney
             }).then((data) => {
                 if (data.code == 200) {
-                    message.success('购买成功');
+                    message.success(data.message);
                 } else {
                     message.error(data.message);
                 }
@@ -133,7 +144,7 @@ class ProduceIndex extends Component {
                    onCancel={this.handleCancel}
             >
                 确认购买&nbsp;&nbsp;<span style={{color:'red',fontSize:22}}>{this.state.buyProdname}</span>&nbsp;&nbsp;吗?
-                <p style={{marginTop: 10}}>购买金额：</p> <Input onChange={this.getValue}/>
+                <p style={{marginTop: 10}}>购买金额（元）：</p> <Input onChange={this.getValue}/>
             </Modal>
             )
     }

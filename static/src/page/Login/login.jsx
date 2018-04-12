@@ -39,7 +39,7 @@ class LoginPageBase extends Component {
             console.log(form);
             login(form).then((data) => {
                if(data.code === 200) {
-                   setCookie('userName',encodeURIComponent(data.data.username));
+                   setCookie('username',data.data.uername);
                    setCookie('usertype',data.data.usertype);
                    setCookie('userid',data.data.userid);
                    browserHistory.push('/');

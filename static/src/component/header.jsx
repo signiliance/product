@@ -26,7 +26,7 @@ class HeaderCustom extends Component {
     }
     menuClick = e => {
         e.key === 'logout' && this.logout();
-        e.key === 'change' && browserHistory.push('/changepasswd');
+        e.key === 'change' && browserHistory.push('/changepwd');
     }
 
     changePwd = () => {
@@ -36,7 +36,7 @@ class HeaderCustom extends Component {
     }
 
     logout = () => {
-        browserHistory.push('/login');
+        browserHistory.push('/userlogin');
     }
 
     hideModal = () => {
@@ -45,26 +45,7 @@ class HeaderCustom extends Component {
         })
     }
 
-    checkPwd = (rule, value, callback) => {
-        const pwReg = /^[\S]{8,30}$/;
-        let passport = this.props.form.getFieldsValue('passport');
 
-        if(pwReg.test(value)) {
-            if(value !== passport) {
-                return callback('两次输入的密码不一致');
-            } else {
-                return callback();
-            }
-        } else {
-            return callback('请勿输入空格，为数介于8-30位之间');
-        }
-    }
-
-    popoverHide = () => {
-        this.setState({
-            visible: false,
-        })
-    };
 
     handleVisibleChange = (visible) => {
         this.setState({ visible })
@@ -74,7 +55,7 @@ class HeaderCustom extends Component {
 
     }
     render() {
-        const { user, changePassword } = this.state;
+       const user = getCookie('username');
         //const { getFieldDecorator, validateFields } = this.props.form;
         const formItemLayout = {
             labelCol: { span: 5 },
@@ -96,6 +77,7 @@ class HeaderCustom extends Component {
                 >
                     <SubMenu title={<span className='avatar'><img src={avater} alt="头像" /><i className="on bottom b-white" /></span>}>
                         <Menu.Item key="info">你好 - {user}</Menu.Item>
+                        <Menu.Item key="change">修改密码</Menu.Item>
                         <Menu.Item key="logout">退出登录</Menu.Item>
                     </SubMenu>
                 </Menu>
