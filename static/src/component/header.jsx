@@ -3,8 +3,9 @@ import { Menu, Icon, Layout, Popover, Form, Input, message, Modal } from 'antd';
 import {getCookie} from "../util/index";
 import avater from '../style/imgs/a1.jpg';
 import {browserHistory} from 'react-router';
-import SliderSum from './Slider'
+import SliderSum from './Slider';
 import '../index.css'
+import {removeCookie} from "../util";
 const {Header} = Layout;
 const SubMenu = Menu.SubMenu;
 const FormItem = Form.Item;
@@ -12,12 +13,10 @@ const FormItem = Form.Item;
 class HeaderCustom extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             user: 'xxxxx',
             visible: false,
             changePassword: true,
-            sss: 1111
         };
     }
 
@@ -36,6 +35,9 @@ class HeaderCustom extends Component {
     }
 
     logout = () => {
+        removeCookie('userid');
+        removeCookie('username');
+        removeCookie('usertype');
         browserHistory.push('/userlogin');
     }
 
@@ -46,22 +48,8 @@ class HeaderCustom extends Component {
     }
 
 
-
-    handleVisibleChange = (visible) => {
-        this.setState({ visible })
-    }
-
-    modalHandleOk = (validateFields) => {
-
-    }
     render() {
        const user = getCookie('username');
-        //const { getFieldDecorator, validateFields } = this.props.form;
-        const formItemLayout = {
-            labelCol: { span: 5 },
-            wrapperCol: { span: 16 }
-        }
-        const pwdReg = /^[\S]{8,30}$/;
         return (
             <div>
             <Header style = {{background: '#fff', padding: 0, height: 65}} className= 'custom-theme'>

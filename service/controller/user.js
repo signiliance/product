@@ -131,10 +131,10 @@ class Controller {
                         dingdanstate: 1,
                     }
                     await DBhandle.query(sql5, params5);
-                    let sql6 = 'select xiashuprodmoney from managers where salerid=' + `${income[0].ownid}`;
+                    let sql6 = 'select xiashuprodmoney,managermoney from managers where salerid=' + `${income[0].ownid}`;
                     let sqlData6 = await DBhandle.query(sql6);
                     let xiashuprodmoney = parseInt(sqlData6[0].xiashuprodmoney) + req.buymoney/1000*7;
-                    let managermoney = req.buymoney/1000*3
+                    let managermoney = sqlData6[0].managermoney+req.buymoney/1000*3;
                     let sql7 = 'update managers set xiashuprodmoney=?,managermoney=? where salerid=?';
                     let params7 = [xiashuprodmoney, managermoney, income[0].ownid];
                     await DBhandle.query(sql7, params7);
@@ -143,7 +143,8 @@ class Controller {
                         userid: req.userid,
                         prodid: req.buyProdId,
                         opertype: 1,
-                        opermoney: req.buymoney
+                        opermoney: req.buymoney,
+                        time: Util.getNowTime()
                     }
                     await DBhandle.query(sql8,params8);
                     res.code = '200';
@@ -198,7 +199,8 @@ class Controller {
             let params3 = {
                 userid: req.userid,
                 opertype: 4,
-                opermoney: req.tixianyuan
+                opermoney: req.tixianyuan,
+                time: Util.getNowTime()
             }
             await DBhandle.query(sql3,params3);
             return res;
@@ -225,7 +227,8 @@ class Controller {
             let params3 = {
                 userid: req.userid,
                 opertype: 3,
-                opermoney: req.chongzhiyuan
+                opermoney: req.chongzhiyuan,
+                time: Util.getNowTime()
             }
             await DBhandle.query(sql3,params3);
             return res;
@@ -242,7 +245,7 @@ class Controller {
             let req = ctx.request.body;
             let sql1 = 'select prodtype,income from products where prodid='+`${req.prodid}`;
             let sqlData1 = await DBhandle.query(sql1);
-            console.log(sqlData1)
+            //console.log(sqlData1)
             if(sqlData1[0].prodtype === 1){
                 if(req.nowtime < req.shouyitime){
                     let sql2 = 'select ownmoney from customers where cmid='+`${req.userid}`;
@@ -256,18 +259,40 @@ class Controller {
                     await DBhandle.query(sql4);
                     let sql5 = 'update salers set dingdanstate="2" where userdingdanid='+`${req.dingdanid}`;
                     await DBhandle.query(sql5);
+                    let sql9 = 'insert into records set ?';
+                    let params9 = {
+                        userid: req.userid,
+                        opertype: 2,
+                        opermoney: req.buymoney,
+                        prodid: req.prodid,
+                        time: Util.getNowTime()
+                    }
+                    await DBhandle.query(sql9,params9);
+                    let sql10 = 'select ownid from products where prodid='+`${req.prodid}`;
+                    let sqlData10 = await DBhandle.query(sql10);
+                    let sql11 = 'select '
                 }else {
                     let sql2 = 'select ownmoney from customers where cmid='+`${req.userid}`;
                     let sqlData2 = await DBhandle.query(sql2);
                     let sql3 = 'update customers set ownmoney=? where cmid=?';
                     let ownmoney = parseInt(sqlData2[0].ownmoney)+parseInt(req.buymoney)+parseInt(req.buymoney*(req.income-1));
-                    res.shouyi = `${parseInt(req.buymoney*(req.income-1))}元`;
+                    let shouyi1 = parseInt(req.buymoney*(req.income-1));
+                    res.shouyi = `${shouyi1}元`;
                     let params3 = [ownmoney,req.userid];
                     await DBhandle.query(sql3,params3);
                     let sql4 = 'delete from userprods where dingdanid='+`${req.dingdanid}`;
                     await DBhandle.query(sql4);
                     let sql5 = 'update salers set dingdanstate="2" where userdingdanid='+`${req.dingdanid}`;
                     await DBhandle.query(sql5);
+                    let sql9 = 'insert into records set ?';
+                    let params9 = {
+                        userid: req.userid,
+                        opertype: 2,
+                        opermoney: req.buymoney+shouyi1,
+                        prodid: req.prodid,
+                        time: Util.getNowTime()
+                    }
+                    await DBhandle.query(sql9,params9);
                 }
             } else if(sqlData1[0].prodtype === 2 || sqlData1[0].prodtype === 3) {
                     let sql6 = 'select buytime,buymoney,prodincome,needbuytime from userprods where dingdanid='+`${req.dingdanid}`;
@@ -286,6 +311,15 @@ class Controller {
                     await DBhandle.query(sql4);
                     let sql5 = 'update salers set dingdanstate="2" where userdingdanid='+`${req.dingdanid}`;
                     await DBhandle.query(sql5);
+                    let sql9 = 'insert into records set ?';
+                    let params9 = {
+                        userid: req.userid,
+                        opertype: 2,
+                        opermoney: req.buymoney+shouyi1,
+                        prodid: req.prodid,
+                        time: Util.getNowTime()
+                    }
+                    await DBhandle.query(sql9,params9);
             }
             res.code = 200;
             res.message = '获取收益成功,收益';
@@ -298,6 +332,83 @@ class Controller {
             return res;
         }
     }
+    async search(ctx) {
+        try{
+            let res = {};
+            let sql = Util.getSql(ctx);
+            //console.log(sql);
+            let sqlData = await DBhandle.query(sql);
+            res.code = 200;
+            res.message = 'success';
+            res.list = sqlData;
+            return res;
+        } catch (e) {
+            let res = {};
+            res.code = 200;
+            res.message = '数据库异常';
+            return res;
+        }
+    }
+    async zixun() {
+        try {
+            let res = {};
+            let sql = 'select * from zixun';
+            let sqlData = await DBhandle.query(sql);
+            res.list = sqlData;
+            res.code = 200;
+            res.message = 'success';
+            return res;
+
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+    }
+    async kehurecord(ctx) {
+        try {
+            let req = ctx.request.body;
+            let res = {};
+            let sql = 'select * from records where userid='+`${req.userid}`;
+            let sqlData = await DBhandle.query(sql);
+            res.list = sqlData;
+            res.code = 200;
+            res.message = 'success';
+            return res;
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+    }
+    async guanjialist (ctx) {
+        try {
+            let req = ctx.request.body;
+            let res = {};
+            let sql1 = 'select cmtype from customers where cmid='+`${req.userid}`;
+            let sqlData1 = await DBhandle.query(sql1);
+            console.log(sqlData1)
+            if(sqlData1[0].cmtype === 3){
+                let sql2 = 'select * from products where dangertype=4';
+                let sqlData2 = await DBhandle.query(sql2);
+                res.dangerlist = sqlData2;
+            }
+            let sql3 = 'select * from products where dangertype='+`${req.userid}`;
+            let sqlData3 = await DBhandle.query(sql3);
+            res.list = sqlData3;
+            res.code = 200;
+            res.message = 'success';
+            return res;
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+    }
+
 }
 
 module.exports = new Controller();

@@ -106,3 +106,31 @@ export const tixian = (form = {}) => {
         body: buildParams(form)
     }).then((res) => res.json()).catch(err => console.log(err))
 }
+export const zixun = () => {
+    return fetch(API.zixun,{
+        credentials: 'include',
+        method: 'GET',
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+export const record = (form = {}) => {
+    return fetch(API.record,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+export const guanjia = (form = {}) => {
+    return fetch(API.guanjia,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}

@@ -8,14 +8,16 @@ import AboutUs from '../page/companny/index';
 import ChangePwd from '../page/Aboutme/ChangePwd';
 import MyProduct from '../page/Aboutme/MyProduct';
 import Manage from '../page/Manage/index'
+import Guanjia from '../page/List/Guanjia';
+import ZiXUn from '../page/zixun/index';
+import Record from '../page/Aboutme/Record'
 import { getCookie } from "../util/index";
 
 export default class Routers extends Component {
     requireAuth = (permission, component) => {
         let token = getCookie('username');
-        let operName = getCookie('usertype');
-        let operAccount = getCookie('userdangertype');
-        if(!token || !operName || !operAccount) browserHistory.push('/userlogin');
+        let operName = getCookie('userid');
+        if(!token || !operName ) browserHistory.push('/userlogin');
         return component;
     }
     render() {
@@ -28,6 +30,13 @@ export default class Routers extends Component {
                     <Route path={'changepwd'} component={ChangePwd} />
                     <Route path={'aboutme'} component={MyProduct} />
                     <Route path={'manage'} component={Manage} />
+                    <Route path={'recommend'} component={Guanjia} />
+                    <Route path={'zixun'} component={ZiXUn} />
+                    <Route path={'record'} component={Record} />
+                </Route>
+                <Route path={'/guanjia'} component={App}>
+                    <IndexRedirect to="/guanjia/product" />
+                    <Route path={'/guanjia/product'} component={Product} />
                 </Route>
                 <Route path={'/userlogin'} component={LoginPage}/>
                 <Route path={'/404'} component={NotFound} />

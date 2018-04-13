@@ -42,7 +42,11 @@ class LoginPageBase extends Component {
                    setCookie('username',data.data.uername);
                    setCookie('usertype',data.data.usertype);
                    setCookie('userid',data.data.userid);
-                   browserHistory.push('/');
+                   if(data.data.usertype == 1) {
+                       browserHistory.push('/');
+                   }else if(data.data.usertype == 2){
+                       browserHistory.push('/guanjia');
+                   }
                }else {
                    message.error(data.message);
                }

@@ -6,8 +6,10 @@ import React, {Component} from 'react';
 import { Table, Form, Input, Select, Row, Col, Button, Modal, message } from 'antd';
 import { browserHistory } from 'react-router';
 import { buyprod, searchlist } from '../../fetch/index';
-import { getTime } from '../../util';
+import {getCookie, getTime, isInt} from '../../util';
 import MangeType from './MangeType';
+import listUtil from "../List/listUtil";
+import Base from "../../component/Base";
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -16,56 +18,68 @@ const Option = Select.Option;
 class Managee extends Component {
 
     state = {
-        list: [{
-            prodId:'1111',
-            preEarn: '5%',
-            buyTime: '5个月',
-            from: '理财宝',
-        },{
-            prodId:'122111',
-            preEarn: '533%',
-            buyTime: '5个月',
-            from: '理财宝',
-        }
-        ],
+        list: [],
 
     }
 
     colums = [
         {
             title: '产品代号',
-            dataIndex: 'prodId',
-            key: 'prodId',
+            dataIndex: 'prodid',
+            key: 'prodid',
             render: (text, record) => (
                 <span style={{color:'red'}}>{text}</span>
             ),
         },
         {
+            title: '产品名称',
+            dataIndex: 'prodname',
+            key: 'prodname'
+        },
+        {
+            title: '产品类型',
+            dataIndex: 'prodtype',
+            key: 'prodtype',
+            render:(text) => (
+                <span>{listUtil.prod(text)}</span>
+            )
+        },
+        {
             title: '预期收益',
-            dataIndex: 'preEarn',
-            key: 'preEarn'
+            dataIndex: 'income',
+            key: 'income',
+            render: (text) => ( <span>{`${text-1}%`}</span>)
         },
         {
             title: '购买时长',
-            dataIndex: 'buyTime',
-            key: 'buyTime'
+            dataIndex: 'needbuytime',
+            key: 'needbuytime',
+            render: (text) => (
+                <span>{text}个月</span>
+            )
         },
         {
             title: '风险',
-            dataIndex: 'danger',
-            key: 'danger'
+            dataIndex: 'dangertype',
+            key: 'dangertype',
+            render:(text) => (
+                <span>{listUtil.table(text)}</span>
+            )
         },
         {
-            title: '来源',
-            dataIndex: 'from',
-            key: 'from'
+            title: '可购买日期',
+            dataIndex: 'needTime',
+            key: 'needTime',
+            render: (text,record) => (
+                <span>{listUtil.time(record.startbuytime,record.endbuytime)}</span>
+            )
         },
         {
             title: '购买',
             dataIndex: 'buy',
             key: 'buy',
             render: (text, record) => (
-                <Button type='primary' onClick={this.buy.bind(this,record.prodId)}>购买</Button>
+                <Button type='primary' onClick={this.buy.bind(this,record.prodname,record.prodid)}>购买</Button>
             ),
         }
     ]
@@ -81,9 +95,16 @@ class Managee extends Component {
         }else {
             searchlist(params).then((data)=>{
                 if(data.code == '200'){
-                    this.setState({
-                        list: data.list,
-                    })
+                    if(data.list === ''){
+                        message.info('未查询到合适产品');
+                        this.setState({
+                            list: ''
+                        })
+                    }else {
+                        this.setState({
+                            list: data.list,
+                        })
+                    }
                 }
             }).catch(err => console.log(err))
         }
@@ -97,25 +118,36 @@ class Managee extends Component {
         this.setState({
             visible: false,
         })
-        buyprod({buyProdId: this.state.buyProdId,buyTime: getTime()}).then((data) => {
-            if(data.code == 200) {
-                message.success('购买成功');
-            }else{
-                message.error('购买失败');
-            }
-        }).catch(err => {
-            console.log(err);
-        })
+        const userid = getCookie('userid');
+        if(this.state.buyMoney >= 100 && isInt(this.state.buyMoney)) {
+            buyprod({
+                userid:userid,
+                buyProdId: this.state.buyProdId,
+                buyTime: getTime(),
+                buymoney: this.state.buyMoney
+            }).then((data) => {
+                if (data.code == 200) {
+                    message.success(data.message);
+                } else {
+                    message.error(data.message);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+        }else {
+            Base.ModFail('tips','购买金额必须是整数且大于100');
+        }
     }
-    buy = (prodId) => {
+    buy = (prodname,prodid) => {
         this.setState({
             visible: true,
-            buyProdId: prodId,
+            buyProdname: prodname,
+            buyProdId: prodid
         })
     }
-    handleCancel = (e) => {
+    getValue = (e) => {
         this.setState({
-            visible: false,
+            buyMoney: Number(e.target.value)
         })
     }
     renderModal = () => {
@@ -127,9 +159,15 @@ class Managee extends Component {
                    onOk={this.handleOk}
                    onCancel={this.handleCancel}
             >
-                确认购买代号为&nbsp;&nbsp;<span style={{color:'red',fontSize:22}}>{this.state.buyProdId}</span>&nbsp;&nbsp;的理财产品吗
+                确认购买&nbsp;&nbsp;<span style={{color:'red',fontSize:22}}>{this.state.buyProdname}</span>&nbsp;&nbsp;吗?
+                <p style={{marginTop: 10}}>购买金额（元）：</p> <Input onChange={this.getValue}/>
             </Modal>
         )
+    }
+    handleCancel = (e) => {
+        this.setState({
+            visible: false,
+        })
     }
 
     render() {
@@ -151,7 +189,7 @@ class Managee extends Component {
                     <Row>
                         <Col span={11}>
                             <FormItem {...formItemLayout1} label="收益时间">
-                                { getFieldDecorator('getMonth', {
+                                { getFieldDecorator('selectmonth', {
                                     rules: [{ required: true, message: '请选择收益时间'}],
                                     initialValue: ''
                                 })(<Select placeholder="请选择收益时间" >
@@ -164,7 +202,7 @@ class Managee extends Component {
                         <Row>
                             <Col span={11}>
                             <FormItem {...formItemLayout1} label="收益百分比">
-                                { getFieldDecorator('getPrecent', {
+                                { getFieldDecorator('selectpre', {
                                     rules: [{ required: true, message: '请选择收益百分比'}],
                                     initialValue: ''
                                 })(<Select placeholder="请选择收益百分比">
@@ -177,7 +215,7 @@ class Managee extends Component {
                         <Row>
                             <Col span={11}>
                                 <FormItem {...formItemLayout1} label="承受风险能力">
-                                    { getFieldDecorator('getDanger', {
+                                    { getFieldDecorator('selectdanger', {
                                         rules: [{ required: true, message: '请选择承受风险能力'}],
                                         initialValue: ''
                                     })(<Select placeholder="请选择承受风险能力">
@@ -195,11 +233,11 @@ class Managee extends Component {
                         </Row>
                     </Form>
                 </div>
-                <Table
+                {this.state.list && <Table
                     style={{marginTop: 15}}
                     columns={this.colums}
                     dataSource={this.state.list}
-                ></Table>
+                ></Table>}
                 {this.renderModal()}
             </div>
         )

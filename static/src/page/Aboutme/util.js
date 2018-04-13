@@ -16,3 +16,18 @@ myUtil.zongshouyi = (list = []) => {
     }
     return zongshouyi;
 }
+
+myUtil.parseType = [
+    {code: 1,name: '购买产品'},
+    {code: 2,name: '获得收益'},
+    {code: 3,name: '充值'},
+    {code: 4,name: '提现'},
+]
+
+myUtil.parse = (a) => {
+    for(let i = 0;i < myUtil.parseType.length;i++){
+        if(a == myUtil.parseType[i].code){
+            return myUtil.parseType[i].name;
+        }
+    }
+}

@@ -2,6 +2,7 @@ const tableType = [
     {code: 1,name:'风险低'},
     {code: 2,name:'风险一般'},
     {code: 3,name:'风险高'},
+    {code: 4,name:'风险极高'},
 ]
 
 const prodtype = [
@@ -21,10 +22,15 @@ TableCom.table = (c) => {
 }
 
 TableCom.prod = (c) => {
+    let flag = 1;
     for(var i =0 ; i < prodtype.length;i++) {
         if(c === prodtype[i].code){
-            return prodtype[i].name
+            return prodtype[i].name;
+            flag = 2;
         }
+    }
+    if(flag === 1){
+        return '用户专属';
     }
 }
 

@@ -20,4 +20,10 @@ export default {
     chongzhi: api+'/chongzhi',
     //提现
     tixian: api+'/tixian',
+    //资讯
+    zixun: api+'/getzixun',
+    //交易记录
+    record: api+'/jiaoyirecord',
+    //获取管家推荐产品和高级产品
+    guanjia: api+'/guanjiatuijian'
 }

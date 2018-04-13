@@ -9,7 +9,6 @@ module.exports = function () {
         ctx.set("Access-Control-Allow-Credentials", true);
 
         if (ctx.url === '/login' && ctx.method === 'POST') {
-            //console.log(ctx.request.body)
             ctx.body = await Controller.login(ctx);
         }
         if (ctx.url === '/changepassword' && ctx.method === 'POST'){
@@ -32,6 +31,18 @@ module.exports = function () {
         }
         if(ctx.url === '/shouyimoney' && ctx.method === 'POST'){
             ctx.body = await  Controller.shouyi(ctx);
+        }
+        if(ctx.url === '/searchlist' && ctx.method === 'POST'){
+            ctx.body = await Controller.search(ctx);
+        }
+        if(ctx.url === '/getzixun' && ctx.method === 'GET'){
+            ctx.body = await Controller.zixun();
+        }
+        if(ctx.url === '/jiaoyirecord' && ctx.method === 'POST'){
+            ctx.body = await Controller.kehurecord(ctx);
+        }
+        if(ctx.url === '/guanjiatuijian' && ctx.method === 'POST'){
+            ctx.body = await Controller.guanjialist(ctx);
         }
         await next();
     }

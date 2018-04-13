@@ -7,7 +7,7 @@ const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
 
-class SiderBarCustom extends Component {
+class SiderBarGuanjia extends Component {
     state = {
         collapsed: false,
         mode: 'inline',
@@ -51,7 +51,7 @@ class SiderBarCustom extends Component {
                 style={{overflowY: 'auto'}}
             >
                 <div className="logo" style = {{textAlign:'center'}}>
-                   {<img src={logoImg} alt="ofo" style = {{marginTop: 15, marginBottom: 10}}/>}
+                    {<img src={logoImg} alt="ofo" style = {{marginTop: 15, marginBottom: 10}}/>}
                 </div>
                 <Menu
                     onClick={this.menuClick}
@@ -71,24 +71,10 @@ class SiderBarCustom extends Component {
                     <Menu.Item key="/recommend">
                         <Link to={'/recommend'}><Icon type="appstore" /><span className="nav-text">管家理财推荐</span></Link>
                     </Menu.Item>
-                    <Menu.Item key="/zixun">
-                        <Link to={'/zixun'}><Icon type="appstore" /><span className="nav-text">理财资讯</span></Link>
-                    </Menu.Item>
-                    <SubMenu key = '/aboutme'  title={<span><Icon type="appstore" /><span>个人中心</span></span>}>
-                        <Menu.Item key="/aboutme">
-                            <Link to={'/aboutme'}><Icon type="bars" /><span className="nav-text">我的理财</span></Link>
-                        </Menu.Item>
-                        <Menu.Item key="/record">
-                            <Link to={'/record'}><Icon type="bars" /><span className="nav-text">交易记录</span></Link>
-                        </Menu.Item>
-                        <Menu.Item key="/changepwd">
-                            <Link to={'/changepwd'}><Icon type="bars" /><span className="nav-text">修改密码</span></Link>
-                        </Menu.Item>
-                    </SubMenu>
                 </Menu>
             </Sider>
         )
     }
 }
 
-export default SiderBarCustom;
+export default SiderBarGuanjia;
