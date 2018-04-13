@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Input, Form, Icon, Button, message} from 'antd';
 import { changepass } from '../../fetch/index';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
+import {getCookie} from "../../util";
 
 const FormItem = Form.Item;
 
@@ -14,10 +15,11 @@ class ChangePass extends Component {
         const { validateFields } = this.props.form;
         const form = this.props.form.getFieldsValue();
         //console.log(form);
-        changepass({newPass: form.passport, oldPass: form.passport_old}).then((data)=>{
+        const userid = getCookie('userid');
+        changepass({userid: userid,newPass: form.passport, oldPass: form.passport_old}).then((data)=>{
             if(data.code === 200) {
                 message.success(data.message);
-                browserHistory.push('/');
+                browserHistory.push('/userlogin');
             }else{
                 message.error(data.message);
             }

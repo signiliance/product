@@ -11,7 +11,7 @@ export default {
     // 理财产品列表
     prodlist: api+'/prodlist',
     // 获取收益
-    getmoney: api+'/getmoney',
+    shouyimoney: api+'/shouyimoney',
     // 获取已购买列表
     myprodlist: api+'/myprodlist',
     //推荐查询

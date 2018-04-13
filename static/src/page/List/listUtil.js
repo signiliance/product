@@ -40,7 +40,7 @@ TableCom.time = (a,b) => {
     return `${a1}-${a2}-${a3}至${b1}-${b2}-${b3}`;
 }
 
-TableCom.needbuytime = (a,b) => {
+TableCom.needbuytime = (a,b,c) => {
     let aa = a.toString();
     let bb = parseInt(b);
     let aa1 = parseInt(aa.slice(0,4));
@@ -52,6 +52,10 @@ TableCom.needbuytime = (a,b) => {
     }else {
         aa2= bb+aa2;
     }
-    return `${aa1}-${aa2}-${aa3}`;
+    if(c){
+        return `${aa1}${aa2}${aa3}`
+    }else {
+        return `${aa1}-${aa2}-${aa3}`;
+    }
 }
 

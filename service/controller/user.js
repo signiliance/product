@@ -1,6 +1,6 @@
 
 const DBhandle = require('../sql/sql.js');
-const Cookie = require('../utils/index');
+const Util = require('../utils/index');
 
 
 class Controller {
@@ -33,7 +33,7 @@ class Controller {
     }
     async changepasswd(ctx) {
         try {
-            let userid = Cookie.cookieGet(ctx, 'userid');
+            let userid = ctx.request.body.userid;
             let pass_new = ctx.request.body.newPass;
             let pass_old = ctx.request.body.oldPass;
             let sql = 'select userpassword from users where userid=' + `${userid}`;
@@ -42,16 +42,10 @@ class Controller {
             if (password[0].userpassword == pass_old) {
                 let sql = 'update users SET userpassword= ? where userid = ?';
                 let params = [pass_new, userid];
-                let sqlData = await DBhandle.query(sql, params);
-                if (sqlData) {
+                await DBhandle.query(sql, params);
                     res = {};
                     res.code = 200;
                     res.message = '修改成功';
-                } else {
-                    res = {};
-                    res.code = 558;
-                    res.message = '修改失败';
-                }
             } else {
                 res = {};
                 res.code = 557;
@@ -61,7 +55,7 @@ class Controller {
         } catch (e) {
             let res = {};
             res.code = 686;
-            res.message = '数据库异常';
+            res.message = '修改失败';
             return res;
         }
     }
@@ -120,6 +114,8 @@ class Controller {
                         needbuytime: income[0].needbuytime,
                     }
                     await DBhandle.query(sql3, params2);
+                    let sql9 = 'select last_insert_id() as lastid';
+                    let sqlData9 = await DBhandle.query(sql9);
                     let sql4 = 'select income from products where prodid=' + `${req.buyProdId}`;
                     let sqlData4 = await DBhandle.query(sql4);
                     let sql5 = 'insert into salers set ?';
@@ -129,14 +125,18 @@ class Controller {
                         prodmoney: req.buymoney,
                         prodincome: sqlData4[0].income,
                         buytime: req.buyTime,
-                        buyuser: req.userid
+                        buyuser: req.userid,
+                        userdingdanid: sqlData9[0].lastid,
+                        ownmoney: (req.buymoney/1000)*7,
+                        dingdanstate: 1,
                     }
                     await DBhandle.query(sql5, params5);
                     let sql6 = 'select xiashuprodmoney from managers where salerid=' + `${income[0].ownid}`;
                     let sqlData6 = await DBhandle.query(sql6);
-                    let xiashuprodmoney = parseInt(sqlData6[0].xiashuprodmoney) + parseInt(req.buymoney);
-                    let sql7 = 'update managers set xiashuprodmoney=? where salerid=?';
-                    let params7 = [xiashuprodmoney, income[0].ownid];
+                    let xiashuprodmoney = parseInt(sqlData6[0].xiashuprodmoney) + req.buymoney/1000*7;
+                    let managermoney = req.buymoney/1000*3
+                    let sql7 = 'update managers set xiashuprodmoney=?,managermoney=? where salerid=?';
+                    let params7 = [xiashuprodmoney, managermoney, income[0].ownid];
                     await DBhandle.query(sql7, params7);
                     let sql8 = 'insert into records set ?';
                     let params8 = {
@@ -182,17 +182,6 @@ class Controller {
             return res;
         }
 
-    }
-    async chongzhi (ctx) {
-        try {
-
-
-        } catch (e) {
-            let res = {};
-            res.code = 686;
-            res.message = '数据库异常';
-            return res;
-        }
     }
     async tixian (ctx) {
         try {
@@ -240,6 +229,68 @@ class Controller {
             }
             await DBhandle.query(sql3,params3);
             return res;
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+    }
+    async shouyi (ctx) {
+        try{
+            let res = {};
+            let req = ctx.request.body;
+            let sql1 = 'select prodtype,income from products where prodid='+`${req.prodid}`;
+            let sqlData1 = await DBhandle.query(sql1);
+            console.log(sqlData1)
+            if(sqlData1[0].prodtype === 1){
+                if(req.nowtime < req.shouyitime){
+                    let sql2 = 'select ownmoney from customers where cmid='+`${req.userid}`;
+                    let sqlData2 = await DBhandle.query(sql2);
+                    let sql3 = 'update customers set ownmoney=? where cmid=?';
+                    let ownmoney = parseInt(sqlData2[0].ownmoney)+parseInt(req.buymoney);
+                    res.shouyi = '0元';
+                    let params3 = [ownmoney,req.userid];
+                    await DBhandle.query(sql3,params3);
+                    let sql4 = 'delete from userprods where dingdanid='+`${req.dingdanid}`;
+                    await DBhandle.query(sql4);
+                    let sql5 = 'update salers set dingdanstate="2" where userdingdanid='+`${req.dingdanid}`;
+                    await DBhandle.query(sql5);
+                }else {
+                    let sql2 = 'select ownmoney from customers where cmid='+`${req.userid}`;
+                    let sqlData2 = await DBhandle.query(sql2);
+                    let sql3 = 'update customers set ownmoney=? where cmid=?';
+                    let ownmoney = parseInt(sqlData2[0].ownmoney)+parseInt(req.buymoney)+parseInt(req.buymoney*(req.income-1));
+                    res.shouyi = `${parseInt(req.buymoney*(req.income-1))}元`;
+                    let params3 = [ownmoney,req.userid];
+                    await DBhandle.query(sql3,params3);
+                    let sql4 = 'delete from userprods where dingdanid='+`${req.dingdanid}`;
+                    await DBhandle.query(sql4);
+                    let sql5 = 'update salers set dingdanstate="2" where userdingdanid='+`${req.dingdanid}`;
+                    await DBhandle.query(sql5);
+                }
+            } else if(sqlData1[0].prodtype === 2 || sqlData1[0].prodtype === 3) {
+                    let sql6 = 'select buytime,buymoney,prodincome,needbuytime from userprods where dingdanid='+`${req.dingdanid}`;
+                    let sqlData6 = await DBhandle.query(sql6);
+                    let yuefen = Util.yuefen(req.nowtime,sqlData6[0].buytime.toString());
+                    let shouyi1 = (sqlData6[0].buymoney*(sqlData6[0].prodincome-1)*(yuefen/sqlData6[0].needbuytime))/100;
+                    let shouyi = parseInt(shouyi1);
+                    res.shouyi = `${shouyi}元`;
+                    let sql7 = 'select ownmoney from customers where cmid='+`${req.userid}`;
+                    let sqlData7 = await DBhandle.query(sql7);
+                    let sql3 = 'update customers set ownmoney=? where cmid=?';
+                    let ownmoney = parseInt(sqlData7[0].ownmoney)+shouyi;
+                    let params3 = [ownmoney,req.userid];
+                    await DBhandle.query(sql3,params3);
+                    let sql4 = 'delete from userprods where dingdanid='+`${req.dingdanid}`;
+                    await DBhandle.query(sql4);
+                    let sql5 = 'update salers set dingdanstate="2" where userdingdanid='+`${req.dingdanid}`;
+                    await DBhandle.query(sql5);
+            }
+            res.code = 200;
+            res.message = '获取收益成功,收益';
+            return res;
+
         } catch (e) {
             let res = {};
             res.code = 686;

@@ -49,7 +49,7 @@ export const getprodlist = (form = {}) => {
     }).then((res) => res.json()).catch(err => console.log(err))
 }
 export const getmoney = (form = {}) => {
-    return fetch(API.getmoney,{
+    return fetch(API.shouyimoney,{
         credentials: 'include',
         method: 'POST',
         headers: {

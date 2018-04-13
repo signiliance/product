@@ -3,7 +3,7 @@ import {Button, message, Col, Row, Tooltip, Icon, Table, Modal, Input} from 'ant
 //import { ChartCard, MiniBar } from 'components/Charts';
 import { add } from '../../util';
 import { getmoney, getmoneylist, chongzhi, tixian } from '../../fetch/index';
-import {getCookie} from "../../util";
+import {getCookie,getTime} from "../../util";
 import TableCom from '../List/listUtil'
 import myUtil from './util';
 import Base from '../../component/Base'
@@ -81,17 +81,21 @@ class MyProduct extends Component {
             dataIndex: 'oper',
             key: 'oper',
             render: (text, record) => (
-                <Button type='primary' onClick={this.getMoney.bind(this,record.prodname,record.dingdanid,record.prodid)}>获取收益</Button>
+                <Button type='primary' onClick={this.getMoney.bind(this,record.prodname,record.dingdanid,record.prodid,record.buytime,record.needbuytime,record.prodincome,record.buymoney)}>获取收益</Button>
             ),
         }
     ];
 
-    getMoney = (prodname,dingdanid,prodid,) =>{
+    getMoney = (prodname,dingdanid,prodid,buytime,needbuytime,prodincome,buymoney) =>{
         this.setState({
             visible: true,
             prodname: prodname,
             prodid: prodid,
-            dingdanid: dingdanid
+            dingdanid: dingdanid,
+            shouyitime: TableCom.needbuytime(buytime,needbuytime,1),
+            nowtime: getTime(),
+            income: prodincome,
+            buymoney: buymoney
         })
     }
 
@@ -117,14 +121,18 @@ class MyProduct extends Component {
     }
 
     handleOk = () => {
-        const {prodid,dingdanid} = this.state;
+
+        const {prodid,dingdanid,shouyitime,nowtime,buymoney,income} = this.state;
         const userid = getCookie('userid');
-        getmoney({userid:userid,prodid,dingdanid}).then((data)=>{
+        this.setState({
+            visible: false
+        })
+        getmoney({userid:userid,prodid,dingdanid,shouyitime,nowtime,buymoney,income}).then((data)=>{
             if(data.code == '200'){
-                message.success('收益成功');
+                message.success(data.message+data.shouyi);
                 this.getList();
             }else {
-                message.error('获取收益失败');
+                message.error(data.message);
             }
         }).catch(err => console.log(err))
 
@@ -233,6 +241,7 @@ class MyProduct extends Component {
                    onCancel={this.handleCancel}
             >
                 确认获取代号为&nbsp;&nbsp;<span style={{color:'red',fontSize:22}}>{this.state.prodname}</span>&nbsp;&nbsp;的理财产品得收益吗？<br/>
+                <span style={{ color: 'red',fontSize: 12}}>（存款债券类产品未到获取收益时间则只能获取本金）</span> <br/>
                 <span style={{ color: 'red',fontSize: 12}}>（获取收益后将不再持有该产品）</span>
             </Modal>
         )

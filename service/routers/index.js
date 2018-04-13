@@ -30,6 +30,9 @@ module.exports = function () {
         if(ctx.url === '/tixian' && ctx.method === 'POST'){
             ctx.body = await Controller.tixian(ctx);
         }
+        if(ctx.url === '/shouyimoney' && ctx.method === 'POST'){
+            ctx.body = await  Controller.shouyi(ctx);
+        }
         await next();
     }
 }

@@ -20,6 +20,20 @@ class Utils {
         })
 
     }
+    yuefen(a,b) {
+        let a1 = a.slice(0,4);
+        let a2 = a.slice(4,6);
+        let a3 = a.slice(6,8);
+        let b1 = b.slice(0,4);
+        let b2 = b.slice(4,6);
+        let b3 = b.slice(6,8);
+        if(a3>=b3){
+            return (a1-b1)*12+(a2-b2);
+        }
+        else {
+            return (a1-b1)*12+(a2-b2-1)
+        }
+    }
 }
 
 module.exports = new Utils();
