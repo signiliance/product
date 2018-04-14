@@ -1,6 +1,6 @@
 
 const Controller = require('../controller/user');
-
+const Guanjia = require('../controller/guanjia');
 
 module.exports = function () {
     return async function (ctx,next) {
@@ -43,6 +43,42 @@ module.exports = function () {
         }
         if(ctx.url === '/guanjiatuijian' && ctx.method === 'POST'){
             ctx.body = await Controller.guanjialist(ctx);
+        }
+        if(ctx.url === '/guanjiafabuprod' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.fabuprod(ctx);
+        }
+        if(ctx.url === '/getuserlist' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.getuserlist(ctx);
+        }
+        if(ctx.url === '/changeusertype' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.changeusertype(ctx);
+        }
+        if(ctx.url === '/guziprodlist' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.getguzilist(ctx);
+        }
+        if(ctx.url === '/changeguziprod' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.changeguziprod(ctx);
+        }
+        if(ctx.url === '/fuziprodlist' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.getfuzilist(ctx);
+        }
+        if(ctx.url === '/changefuziprod' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.changefuziprod(ctx);
+        }
+        if(ctx.url === '/zixunfabu' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.zixunfabu(ctx);
+        }
+        if(ctx.url === '/getguanjiazixun' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.getzixun(ctx);
+        }
+        if(ctx.url === '/guanzixunsc' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.zixunsc(ctx)
+        }
+        if(ctx.url === '/guanjiashouyilist' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.shouyi(ctx);
+        }
+        if(ctx.url === '/guanjiatixian' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.guanjiatixian(ctx);
         }
         await next();
     }

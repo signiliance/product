@@ -10,7 +10,14 @@ import MyProduct from '../page/Aboutme/MyProduct';
 import Manage from '../page/Manage/index'
 import Guanjia from '../page/List/Guanjia';
 import ZiXUn from '../page/zixun/index';
-import Record from '../page/Aboutme/Record'
+import Record from '../page/Aboutme/Record';
+import ProductGuan from '../page/guanjia/Product/index';
+import Usermanage from '../page/guanjia/User/index';
+import GuZi from '../page/guanjia/Guzi/index';
+import FuZi from '../page/guanjia/Fuzi/index';
+import Zixunfb from '../page/guanjia/Zixun/Zixunfabu';
+import Zixunsc from '../page/guanjia/Zixun/zixunshanchu';
+import ShouYi from '../page/guanjia/Shouyi/index'
 import { getCookie } from "../util/index";
 
 export default class Routers extends Component {
@@ -36,7 +43,13 @@ export default class Routers extends Component {
                 </Route>
                 <Route path={'/guanjia'} component={App}>
                     <IndexRedirect to="/guanjia/product" />
-                    <Route path={'/guanjia/product'} component={Product} />
+                    <Route path={'/guanjia/product'} component={ProductGuan} />
+                    <Route path={'/guanjia/usermanage'} component={Usermanage} />
+                    <Route path={'/guanjia/gzmanage'} component={GuZi} />
+                    <Route path={'/guanjia/fzmanage'} component={FuZi} />
+                    <Route path={'/guanjia/zxput'} component={Zixunfb} />
+                    <Route path={'/guanjia/zxsc'} component={Zixunsc} />
+                    <Route path={'/guanjia/guanjiash'} component={ShouYi} />
                 </Route>
                 <Route path={'/userlogin'} component={LoginPage}/>
                 <Route path={'/404'} component={NotFound} />

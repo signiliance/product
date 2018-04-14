@@ -59,17 +59,30 @@ class SiderBarGuanjia extends Component {
                     mode="inline"
                     selectedKeys={[selectedKey]}
                 >
-                    <Menu.Item key="/product">
-                        <Link to={'/product'}><Icon type="appstore" /><span className="nav-text">公司产品</span></Link>
+                    <SubMenu key = '/guanjia/product'  title={<span><Icon type="appstore" /><span>产品管理</span></span>}>
+                        <Menu.Item key="/guanjia/product">
+                            <Link to={'/guanjia/product'}><Icon type="bars" /><span className="nav-text">发布产品</span></Link>
+                        </Menu.Item>
+                        <Menu.Item key="/guanjia/gzmanage">
+                            <Link to={'/guanjia/gzmanage'}><Icon type="bars" /><span className="nav-text">固资产品</span></Link>
+                        </Menu.Item>
+                        <Menu.Item key="/guanjia/fzmanage">
+                            <Link to={'/guanjia/fzmanage'}><Icon type="bars" /><span className="nav-text">浮资产品</span></Link>
+                        </Menu.Item>
+                    </SubMenu>
+                    <Menu.Item key="/guanjia/usermanage">
+                        <Link to={'/guanjia/usermanage'}><Icon type="appstore" /><span className="nav-text">用户管理</span></Link>
                     </Menu.Item>
-                    <Menu.Item key="/companny">
-                        <Link to={'/companny'}><Icon type="appstore" /><span className="nav-text">关于我们</span></Link>
-                    </Menu.Item>
-                    <Menu.Item key="/manage">
-                        <Link to={'/manage'}><Icon type="appstore" /><span className="nav-text">个性理财推荐</span></Link>
-                    </Menu.Item>
-                    <Menu.Item key="/recommend">
-                        <Link to={'/recommend'}><Icon type="appstore" /><span className="nav-text">管家理财推荐</span></Link>
+                    <SubMenu key="/guanjia/zxput" title={<span><Icon type="appstore" /><span>资讯管理</span></span>}>
+                        <Menu.Item key="/guanjia/zxput">
+                            <Link to={'/guanjia/zxput'}><Icon type="menu-unfold" /><span className="nav-text">资讯发布</span></Link>
+                        </Menu.Item>
+                        <Menu.Item key="/guanjia/zxsc">
+                            <Link to={'/guanjia/zxsc'}><Icon type="menu-unfold" /><span className="nav-text">资讯管理</span></Link>
+                        </Menu.Item>
+                    </SubMenu>
+                    <Menu.Item key="/guanjia/guanjiash">
+                        <Link to={'/guanjia/guanjiash'}><Icon type="appstore" /><span className="nav-text">我的收益</span></Link>
                     </Menu.Item>
                 </Menu>
             </Sider>

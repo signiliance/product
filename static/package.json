@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.2.3",
+    "moment": "^2.22.0",
     "react": "^16.2.0",
     "react-cookies": "^0.1.0",
     "react-dom": "^16.2.0",

@@ -45,7 +45,7 @@ class LoginPageBase extends Component {
                    if(data.data.usertype == 1) {
                        browserHistory.push('/');
                    }else if(data.data.usertype == 2){
-                       browserHistory.push('/guanjia');
+                       browserHistory.push('/guanjia/product');
                    }
                }else {
                    message.error(data.message);

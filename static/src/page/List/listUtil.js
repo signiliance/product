@@ -11,6 +11,12 @@ const prodtype = [
     {code: 3, name: '风险投资'},
 ]
 
+const usertype1 = [
+    {code: 1, name: '普通会员'},
+    {code: 2, name: '中级会员'},
+    {code: 3, name: '高级会员'},
+]
+
 const TableCom = module.exports = {};
 
 TableCom.table = (c) => {
@@ -65,3 +71,10 @@ TableCom.needbuytime = (a,b,c) => {
     }
 }
 
+TableCom.userTy = (a) => {
+    for(let i = 0; i< usertype1.length;i++){
+        if(a == usertype1[i].code){
+            return usertype1[i].name
+        }
+    }
+}
