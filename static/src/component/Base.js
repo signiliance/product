@@ -16,6 +16,16 @@ Base.ModSuccess = (title, content, onOk) => {
         },
     });
 }
+Base.ModSuccessd = (title, content, onOk) => {
+    Modal.success({
+        title,
+        content: <div style={{ wordBreak: 'break-all' }}>{content}</div>,
+        okText: '去登陆',
+        onOk,
+        onCancel() {
+        },
+    });
+}
 
 Base.ModFail = (title, content, onOk) => {
     Modal.error({

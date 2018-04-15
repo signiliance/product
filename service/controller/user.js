@@ -389,13 +389,12 @@ class Controller {
             let res = {};
             let sql1 = 'select cmtype from customers where cmid='+`${req.userid}`;
             let sqlData1 = await DBhandle.query(sql1);
-            console.log(sqlData1)
             if(sqlData1[0].cmtype === 3){
                 let sql2 = 'select * from products where dangertype=4';
                 let sqlData2 = await DBhandle.query(sql2);
                 res.dangerlist = sqlData2;
             }
-            let sql3 = 'select * from products where dangertype='+`${req.userid}`;
+            let sql3 = 'select * from products where dangertype=5';
             let sqlData3 = await DBhandle.query(sql3);
             res.list = sqlData3;
             res.code = 200;
@@ -409,6 +408,62 @@ class Controller {
         }
     }
 
+    async getguanjia () {
+        try {
+            let res = {};
+            let sql1 = 'select salerid,salertype from managers';
+            let sqlData1 = await DBhandle.query(sql1);
+            for(let i = 0;i<sqlData1.length;i++){
+                let sql2 = 'select username from users where userid='+`${sqlData1[i].salerid}`;
+                let sqlData2 = await DBhandle.query(sql2);
+                sqlData1[i].salername = sqlData2[0].username;
+            }
+            res.list = sqlData1;
+            res.code = 200;
+            res.message = 'success';
+            return res;
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+    }
+
+    async zhuceyonghu (ctx) {
+        try{
+            let req = ctx.request.body;
+            let res = {};
+            let sql1 = 'insert into users set ?';
+            let params1 = {
+                username: req.username,
+                userphone: req.userphone,
+                userpassword: req.password,
+                usertype: 1
+            }
+            await DBhandle.query(sql1,params1);
+            let sql2 = 'select last_insert_id() as lastid';
+            let sqlData2 = await DBhandle.query(sql2);
+            let sql3 = 'insert into customers set ?';
+            let params3 = {
+                cmid: sqlData2[0].lastid,
+                cmtype: 1,
+                ownmoney: 0,
+                salerid: req.salerid
+            }
+            await DBhandle.query(sql3,params3);
+            res.userid = sqlData2[0].lastid;
+            res.code = 200;
+            res.message = 'success';
+            return res;
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+
+    }
 }
 
 module.exports = new Controller();

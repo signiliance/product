@@ -47,7 +47,7 @@ class Record extends Component {
     }
     render () {
         return(
-            <div>
+            <div className='content' style={{marginTop: 15}}>
         {this.state.list &&
         <Table
             style={{marginTop: 15}}

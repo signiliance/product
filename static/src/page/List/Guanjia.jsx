@@ -72,6 +72,67 @@ class Guanjia extends Component {
             ),
         }
     ]
+    colum = [
+        {
+            title: '产品代号',
+            dataIndex: 'prodid',
+            key: 'prodid',
+            render: (text, record) => (
+                <span style={{color:'red'}}>{text}</span>
+            ),
+        },
+        {
+            title: '产品名称',
+            dataIndex: 'prodname',
+            key: 'prodname'
+        },
+        {
+            title: '产品类型',
+            dataIndex: 'prodtype',
+            key: 'prodtype',
+            render:(text) => (
+                <span>{listUtil.prod(text)}</span>
+            )
+        },
+        {
+            title: '预期收益',
+            dataIndex: 'income',
+            key: 'income',
+            render: (text) => ( <span>{`${text-1}%`}</span>)
+        },
+        {
+            title: '购买时长',
+            dataIndex: 'needbuytime',
+            key: 'needbuytime',
+            render: (text) => (
+                <span>{text}个月</span>
+            )
+        },
+        {
+            title: '来源',
+            dataIndex: 'dangertype',
+            key: 'dangertype',
+            render:(text) => (
+                <span>{listUtil.table(text)}</span>
+            )
+        },
+        {
+            title: '可购买日期',
+            dataIndex: 'needTime',
+            key: 'needTime',
+            render: (text,record) => (
+                <span>{listUtil.time(record.startbuytime,record.endbuytime)}</span>
+            )
+        },
+        {
+            title: '购买',
+            dataIndex: 'buy',
+            key: 'buy',
+            render: (text, record) => (
+                <Button type='primary' onClick={this.buy.bind(this,record.prodname,record.prodid)}>购买</Button>
+            ),
+        }
+    ]
     componentWillMount () {
         const userid = getCookie('userid');
         guanjia({userid: userid}).then((data)=>{
@@ -153,19 +214,19 @@ class Guanjia extends Component {
             {this.state.list &&
             <div>
             <div className='content' style={{marginTop:15,fontSize: 20,color: 'red'}}>管家推荐产品</div>
-            <Table
+            <div className='content'><Table
                 style={{marginTop: 15}}
-                columns={this.colums}
+                columns={this.colum}
                 dataSource={this.state.list}
-            ></Table></div>}
+            ></Table></div></div>}
             {this.state.dangerlist &&
             <div>
                 <div className='content' style={{marginTop:15,fontSize: 20,color: 'red'}}>高级用户专属产品</div>
-                <Table
+                <div className='content'><Table
                 style={{marginTop: 15}}
                 columns={this.colums}
                 dataSource={this.state.dangerlist}
-            ></Table></div>}
+            ></Table></div></div>}
                 {this.renderModal()}
             </div>
         )

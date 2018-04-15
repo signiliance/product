@@ -80,6 +80,12 @@ module.exports = function () {
         if(ctx.url === '/guanjiatixian' && ctx.method === 'POST'){
             ctx.body = await Guanjia.guanjiatixian(ctx);
         }
+        if(ctx.url === '/guanjialist' && ctx.method === 'GET'){
+            ctx.body = await Controller.getguanjia();
+        }
+        if(ctx.url === '/userzhuce' && ctx.method === 'POST'){
+            ctx.body = await Controller.zhuceyonghu(ctx);
+        }
         await next();
     }
 }

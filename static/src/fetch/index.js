@@ -271,3 +271,21 @@ export const guanjiatixian = (form = {}) => {
         body: buildParams(form)
     }).then((res) => res.json()).catch(err => console.log(err))
 }
+
+export const getguanjialist = () => {
+    return fetch(API.getguanjialist,{
+        credentials: 'include',
+        method: 'GET',
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+export const zhuce = (form = {}) => {
+    return fetch(API.zhuceyonghu,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}

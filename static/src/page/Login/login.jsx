@@ -12,7 +12,7 @@ const FormItem = Form.Item;
 const styles = {
     loginWrap: {
         width: '300px',
-        padding: '15px',
+        padding: '15px 15px 1px 15px',
         border: '1px solid #ccc',
         borderRadius: '10px',
         background: '#fff'
@@ -27,6 +27,20 @@ const styles = {
 }
 
 class LoginPageBase extends Component {
+
+    constructor(props){
+        super(props);
+    }
+
+    state = {};
+
+    componentWillMount () {
+        if(this.props.location.query.userid){
+            this.setState({
+                userid: this.props.location.query.userid
+            })
+        }
+    }
 
 
     handleSubmit =(e) => {
@@ -56,6 +70,10 @@ class LoginPageBase extends Component {
         })
     }
 
+    zhuce = () => {
+        browserHistory.push('/regist');
+
+    }
     render() {
         const {getFieldDecorator} = this.props.form;
         // const code = getFieldValue('code');
@@ -66,9 +84,10 @@ class LoginPageBase extends Component {
                     <Form layout="horizontal" onSubmit={this.handleSubmit}>
                         <FormItem style={{width: '100%', marginBottom: 5}}>
                             {getFieldDecorator('userid', {
-                                rules: [{required: true, message: '请输入用户名'}],
+                                rules: [{required: true, message: '请输入用户id'}],
+                                initialValue: this.state.userid,
                             })(
-                                <Input addonBefore={<Icon type="user"/>} placeholder="请输入用户名" style={{width: '100%'}}/>,
+                                <Input addonBefore={<Icon type="user"/>} placeholder="请输入用户id" style={{width: '100%'}}/>,
                             )}
                         </FormItem>
                         <FormItem style={{width: '100%', marginBottom: 5}}>
@@ -81,6 +100,7 @@ class LoginPageBase extends Component {
                         </FormItem>
                         <FormItem>
                             <Button type="primary" htmlType="submit" style={{width: '100%'}}>登录</Button>
+                            <Button type="primary" style={{width: '100%'}} onClick={this.zhuce}>注册</Button>
                         </FormItem>
                     </Form>
                 </Col>

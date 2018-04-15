@@ -19,6 +19,7 @@ import Zixunfb from '../page/guanjia/Zixun/Zixunfabu';
 import Zixunsc from '../page/guanjia/Zixun/zixunshanchu';
 import ShouYi from '../page/guanjia/Shouyi/index'
 import { getCookie } from "../util/index";
+import Regists from '../page/registered/index'
 
 export default class Routers extends Component {
     requireAuth = (permission, component) => {
@@ -52,6 +53,7 @@ export default class Routers extends Component {
                     <Route path={'/guanjia/guanjiash'} component={ShouYi} />
                 </Route>
                 <Route path={'/userlogin'} component={LoginPage}/>
+                <Route path={'/regist'} component={Regists}/>
                 <Route path={'/404'} component={NotFound} />
                 <Route path="*" component={NotFound} />
             </Router>

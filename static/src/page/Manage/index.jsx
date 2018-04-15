@@ -18,8 +18,6 @@ const Option = Select.Option;
 class Managee extends Component {
 
     state = {
-        list: [],
-
     }
 
     colums = [
@@ -95,8 +93,8 @@ class Managee extends Component {
         }else {
             searchlist(params).then((data)=>{
                 if(data.code == '200'){
-                    if(data.list === ''){
-                        message.info('未查询到合适产品');
+                    if(data.list == ''){
+                        message.error('未查询到合适产品');
                         this.setState({
                             list: ''
                         })
@@ -233,11 +231,11 @@ class Managee extends Component {
                         </Row>
                     </Form>
                 </div>
-                {this.state.list && <Table
+                {this.state.list &&<div className='content'> <Table
                     style={{marginTop: 15}}
                     columns={this.colums}
                     dataSource={this.state.list}
-                ></Table>}
+                ></Table></div>}
                 {this.renderModal()}
             </div>
         )

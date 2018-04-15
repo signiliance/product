@@ -3,6 +3,7 @@ const tableType = [
     {code: 2,name:'风险一般'},
     {code: 3,name:'风险高'},
     {code: 4,name:'风险极高'},
+    {code: 5,name:'管家推荐'},
 ]
 
 const prodtype = [

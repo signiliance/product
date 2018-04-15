@@ -25,7 +25,8 @@ class ProductGJ extends Component {
         formData.userid = userid;
         formData.startbuytime = moment(formData.startbuytime).format("YYYYMMDD");
         formData.endbuytime = moment(formData.endbuytime).format("YYYYMMDD");
-        if(!formData.prodname && !formData.startbuytime && !formData.endbuytime && !formData.income && !formData.dangertype && !formData.prodtype && !formData.needbuytime) {
+        console.log(formData);
+        if(formData.prodname && formData.startbuytime && formData.endbuytime && formData.income && formData.dangertype && formData.prodtype && formData.needbuytime) {
             if (parseInt(formData.startbuytime) > parseInt(formData.endbuytime)) {
                 Base.ModFail('warnning', '开始购买时间必须小于结束时间');
             } else {

@@ -49,5 +49,9 @@ export default {
     //管家收益列表
     guanjiashouyilist: api+'/guanjiashouyilist',
     //管家提现
-    guanjiatixian: api + '/guanjiatixian'
+    guanjiatixian: api + '/guanjiatixian',
+    //获取管家列表
+    getguanjialist: api + '/guanjialist',
+    //注册
+    zhuceyonghu: api + '/userzhuce'
 }

@@ -180,7 +180,7 @@ class ProduceIndex extends Component {
                         </div>
                     </Col>
                 </Row>
-                <div style = {{marginTop: 20}}>
+                <div className='content' style = {{marginTop: 20}}>
                     {this.state.list && <Table
                         columns={this.colums}
                         dataSource={this.state.list}
