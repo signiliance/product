@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Layout } from 'antd';
 import SiderBarCustom from '../component/Slider';
 import SliderBarGuanjia from '../component/SliderGuanjia';
+import SiderManager from '../component/SliderManager';
 import HeaderCustom from '../component/header'
 import 'antd/dist/antd.css';
 import '../index.css'
@@ -15,7 +16,7 @@ class App extends Component {
     }
 
     renderSlider = () => {
-        const usertype = getCookie('usertype')
+        const usertype = getCookie('usertype');
         if(usertype == 1){
             return (
                 <SiderBarCustom path={this.props.location.pathname} />
@@ -23,6 +24,11 @@ class App extends Component {
         }else if(usertype == 2){
             return (
                 <SliderBarGuanjia path={this.props.location.pathname} />
+            )
+        }
+        else if(usertype == 3){
+            return (
+                <SiderManager path={this.props.location.pathname} />
             )
         }
     }

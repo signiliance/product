@@ -59,7 +59,10 @@ class LoginPageBase extends Component {
                    if(data.data.usertype == 1) {
                        browserHistory.push('/');
                    }else if(data.data.usertype == 2){
-                       browserHistory.push('/guanjia/product');
+                       browserHistory.push('/guanjia/guanjiash');
+                   }
+                   else if(data.data.usertype == 3){
+                       browserHistory.push('/product');
                    }
                }else {
                    message.error(data.message);
