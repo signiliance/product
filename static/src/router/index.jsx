@@ -17,9 +17,14 @@ import GuZi from '../page/guanjia/Guzi/index';
 import FuZi from '../page/guanjia/Fuzi/index';
 import Zixunfb from '../page/guanjia/Zixun/Zixunfabu';
 import Zixunsc from '../page/guanjia/Zixun/zixunshanchu';
-import ShouYi from '../page/guanjia/Shouyi/index'
+import ShouYi from '../page/guanjia/Shouyi/index';
+import SalerWD from '../page/managers/salermanager/salerwithdraw';
+import EditSaler from '../page/managers/salermanager/editSaler';
+import RewardWithdraw from '../page/managers/withdraw/rewardwithdraw'
+import ProdWithdraw from '../page/managers/withdraw/prodwithdraw'
+import Regists from '../page/registered/index';
+import Managerself from '../page/managers/managerself/index'
 import { getCookie } from "../util/index";
-import Regists from '../page/registered/index'
 
 export default class Routers extends Component {
     requireAuth = (permission, component) => {
@@ -51,6 +56,14 @@ export default class Routers extends Component {
                     <Route path={'/guanjia/zxput'} component={Zixunfb} />
                     <Route path={'/guanjia/zxsc'} component={Zixunsc} />
                     <Route path={'/guanjia/guanjiash'} component={ShouYi} />
+                </Route>
+                <Route path={'/manager'} component={App}>
+                    <IndexRedirect to="/manager/salerswd" />
+                    <Route path={'/manager/salerswd'} component={SalerWD} />
+                    <Route path={'/manager/editsalers'} component={EditSaler} />
+                    <Route path={'/manager/prodwithdraw'} component={ProdWithdraw}/>
+                    <Route path={'/manager/rewardwithdraw'} component={RewardWithdraw}/>
+                    <Route path={'/manager/managerself'} component={Managerself}/>
                 </Route>
                 <Route path={'/userlogin'} component={LoginPage}/>
                 <Route path={'/regist'} component={Regists}/>

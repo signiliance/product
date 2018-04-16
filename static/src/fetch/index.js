@@ -289,3 +289,98 @@ export const zhuce = (form = {}) => {
         body: buildParams(form)
     }).then((res) => res.json()).catch(err => console.log(err))
 }
+
+export const salerwithdraw = (form = {}) => {
+    return fetch(API.salerWithdraw,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+
+export const guanjiareward = (form = {}) => {
+    return fetch(API.guanjiareward,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+
+export const getsalerlist= (form = {}) => {
+    return fetch(API.getsalerlist,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+
+export const addsaler= (form = {}) => {
+    return fetch(API.addsaler,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+
+export const salerallsale= (form = {}) => {
+    return fetch(API.salerallprod,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+
+export const rewardwithdraw= (form = {}) => {
+    return fetch(API.rewardwithdraw,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+
+export const getmanagermoney= (form = {}) => {
+    return fetch(API.getmanagermoney,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+export const managertixian= (form = {}) => {
+    return fetch(API.managertixian,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}

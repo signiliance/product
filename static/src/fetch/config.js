@@ -53,5 +53,21 @@ export default {
     //获取管家列表
     getguanjialist: api + '/guanjialist',
     //注册
-    zhuceyonghu: api + '/userzhuce'
+    zhuceyonghu: api + '/userzhuce',
+    //获取业务员流水
+    salerWithdraw: api + '/salerwithdraw',
+    //奖励业务员
+    guanjiareward: api+ '/rewardguanjia',
+    //获取管家列表
+    getsalerlist: api+ '/salerlist',
+    //添加管家
+    addsaler: api + '/addsaler',
+    //销售流水
+    salerallprod: api+ '/salerallsale',
+    //奖励流水
+    rewardwithdraw: api+ '/rewardwithdraw',
+    //获取经理余额
+    getmanagermoney: api + '/managermoney',
+    //经理提现
+    managertixian: api+ '/maagertixian'
 }

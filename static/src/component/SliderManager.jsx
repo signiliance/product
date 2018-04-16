@@ -59,19 +59,24 @@ class SiderManager extends Component {
                     mode="inline"
                     selectedKeys={[selectedKey]}
                 >
-                    <SubMenu key = '/aboutme'  title={<span><Icon type="appstore" /><span>业务员管理</span></span>}>
-                        <Menu.Item key="/aboutme">
-                            <Link to={'/aboutme'}><Icon type="bars" /><span className="nav-text">业务员业绩</span></Link>
+                    <SubMenu key = '/manager/salerswd'  title={<span><Icon type="appstore" /><span>业务员管理</span></span>}>
+                        <Menu.Item key="/manager/salerswd">
+                            <Link to={'/manager/salerswd'}><Icon type="bars" /><span className="nav-text">业务员业绩</span></Link>
                         </Menu.Item>
-                        <Menu.Item key="/record">
-                            <Link to={'/record'}><Icon type="bars" /><span className="nav-text">业务员管理</span></Link>
+                        <Menu.Item key="/manager/editsalers">
+                            <Link to={'/manager/editsalers'}><Icon type="bars" /><span className="nav-text">业务员管理</span></Link>
                         </Menu.Item>
                     </SubMenu>
-                    <Menu.Item key="/recommend">
-                        <Link to={'/recommend'}><Icon type="appstore" /><span className="nav-text">销售流水</span></Link>
-                    </Menu.Item>
-                    <Menu.Item key="/recommend">
-                        <Link to={'/recommend'}><Icon type="appstore" /><span className="nav-text">个人中心</span></Link>
+                    <SubMenu  key = '/manager/prodwithdraw'  title={<span><Icon type="appstore" /><span>流水</span></span>}>
+                        <Menu.Item key="/manager/prodwithdraw">
+                             <Link to={'/manager/prodwithdraw'}><Icon type="appstore" /><span className="nav-text">销售流水</span></Link>
+                        </Menu.Item>
+                        <Menu.Item key="/manager/rewardwithdraw">
+                            <Link to={'/manager/rewardwithdraw'}><Icon type="appstore" /><span className="nav-text">奖励流水</span></Link>
+                        </Menu.Item>
+                    </SubMenu>
+                    <Menu.Item key="/manager/managerself">
+                        <Link to={'/manager/managerself'}><Icon type="appstore" /><span className="nav-text">个人中心</span></Link>
                     </Menu.Item>
                 </Menu>
             </Sider>

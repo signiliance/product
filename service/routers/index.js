@@ -1,6 +1,7 @@
 
 const Controller = require('../controller/user');
 const Guanjia = require('../controller/guanjia');
+const Manager = require('../controller/manager');
 
 module.exports = function () {
     return async function (ctx,next) {
@@ -85,6 +86,27 @@ module.exports = function () {
         }
         if(ctx.url === '/userzhuce' && ctx.method === 'POST'){
             ctx.body = await Controller.zhuceyonghu(ctx);
+        }
+        if(ctx.url === '/salerwithdraw' && ctx.method === 'POST'){
+            ctx.body = await Manager.salerWD(ctx);
+        }
+        if(ctx.url === '/rewardguanjia' && ctx.method === 'POST'){
+            ctx.body = await Manager.salerreward(ctx);
+        }
+        if(ctx.url === '/salerlist' && ctx.method === 'POST'){
+            ctx.body = await Manager.getsalerlist(ctx);
+        }
+        if(ctx.url === '/addsaler' && ctx.method === 'POST'){
+            ctx.body = await Manager.addSaler(ctx);
+        }
+        if(ctx.url === '/salerallsale' && ctx.method === 'POST'){
+            ctx.body = await Manager.getsalersalelist(ctx);
+        }
+        if(ctx.url === '/rewardwithdraw' && ctx.method === 'POST'){
+            ctx.body = await Manager.rewardwithdraw(ctx);
+        }
+        if(ctx.url === '/managermoney' && ctx.method === 'POST'){
+            ctx.body = await Manager.getmanagermoney(ctx);
         }
         await next();
     }

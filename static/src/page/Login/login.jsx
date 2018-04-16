@@ -62,7 +62,7 @@ class LoginPageBase extends Component {
                        browserHistory.push('/guanjia/guanjiash');
                    }
                    else if(data.data.usertype == 3){
-                       browserHistory.push('/product');
+                       browserHistory.push('/manager/salerswd');
                    }
                }else {
                    message.error(data.message);
