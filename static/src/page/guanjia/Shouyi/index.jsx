@@ -20,6 +20,11 @@ class ShouYi extends Component{
             key: 'buyuser',
         },
         {
+            title: '用户姓名',
+            dataIndex: 'buyusername',
+            key: 'buyusername',
+        },
+        {
             title: '产品id',
             dataIndex: 'prodid',
             key: 'prodid',
@@ -39,6 +44,7 @@ class ShouYi extends Component{
             title: '购买时间',
             dataIndex: 'buytime',
             key: 'buytime',
+            render: (text)=>(<span>{`${text.toString().slice(0,4)}`+'-'+`${text.toString().slice(4,6)}`+'-'+`${text.toString().slice(6,8)}`}</span>)
         },
         {
             title: '我的收益',

@@ -225,8 +225,14 @@ class Guanjia {
         try {
             let req = ctx.request.body;
             let res = {};
-            let sql1 = 'select * from salers where salerid='+`${req.userid}`;
-            let sqlData1 = await DBhandle.query(sql1);
+            let sql1 = 'select * from salers where salerid=? ORDER BY buytime DESC LIMIT 501';
+            let params = [req.userid];
+            let sqlData1 = await DBhandle.query(sql1,params);
+            for(let i = 0;i<sqlData1.length;i++){
+                let sql3 = 'select username from users where userid='+`${sqlData1[i].buyuser}`;
+                let sqlData3 = await DBhandle.query(sql3);
+                sqlData1[i].buyusername = sqlData3[0].username;
+            }
             res.list = sqlData1;
             let sql2 = 'select xiashuprodmoney from managers where salerid='+`${req.userid}`;
             let sqlData2 = await DBhandle.query(sql2);

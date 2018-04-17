@@ -132,8 +132,9 @@ class Manager {
             let sqlData1 = await DBhandle.query(sql1);
             res.list = [];
             for(let i=0;i<sqlData1.length;i++){
-                let sql2 = 'select salerid,prodid,prodmoney,ownmoney,buytime,buyuser,dingdanstate from salers where salerid='+`${sqlData1[i].salerid}`;
-                let sqlData2 = await DBhandle.query(sql2);
+                let sql2 = 'select salerid,prodid,prodmoney,ownmoney,buytime,buyuser,dingdanstate from salers where salerid=? ORDER BY buytime DESC LIMIT 501';
+                let params = [sqlData1[i].salerid]
+                let sqlData2 = await DBhandle.query(sql2,params);
                for(let k=0;k<sqlData2.length;k++){
                    res.list.push(sqlData2[k]);
                }

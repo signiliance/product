@@ -50,7 +50,6 @@ class LoginPageBase extends Component {
                 console.log(err);
             }
             const form = this.props.form.getFieldsValue();
-            console.log(form);
             login(form).then((data) => {
                if(data.code === 200) {
                    setCookie('username',data.data.uername);

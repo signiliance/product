@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Router, Route, browserHistory, IndexRedirect} from 'react-router';
+import {Router, Route, hashHistory,browserHistory, IndexRedirect} from 'react-router';
 import LoginPage from '../page/Login/login';
 import NotFound from '../page/NotFound/index';
 import App from '../page/index';
@@ -30,7 +30,22 @@ export default class Routers extends Component {
     requireAuth = (permission, component) => {
         let token = getCookie('username');
         let operName = getCookie('userid');
-        if(!token || !operName ) browserHistory.push('/userlogin');
+        let usertype = getCookie('usertype');
+        if(!(usertype!=='' && token!=='' && operName!=='' && usertype == 1)) browserHistory.push('/userlogin');
+        return component;
+    }
+    requireAuth2 = (permission, component) => {
+        let token = getCookie('username');
+        let operName = getCookie('userid');
+        let usertype = getCookie('usertype')
+        if(!(usertype!=='' && token!=='' && operName!=='' && usertype == 2)) browserHistory.push('/userlogin');
+        return component;
+    }
+    requireAuth3 = (permission, component) => {
+        let token = getCookie('username');
+        let operName = getCookie('userid');
+        let usertype = getCookie('usertype')
+        if(!(usertype!=='' && token!=='' && operName!=='' && usertype == 3)) browserHistory.push('/userlogin');
         return component;
     }
     render() {
@@ -38,32 +53,32 @@ export default class Routers extends Component {
             <Router history = {browserHistory}>
                 <Route path={'/'} component={App}>
                     <IndexRedirect to="/product" />
-                    <Route path={'product'} component={Product} />
-                    <Route path={'companny'} component={AboutUs} />
-                    <Route path={'changepwd'} component={ChangePwd} />
-                    <Route path={'aboutme'} component={MyProduct} />
-                    <Route path={'manage'} component={Manage} />
-                    <Route path={'recommend'} component={Guanjia} />
-                    <Route path={'zixun'} component={ZiXUn} />
-                    <Route path={'record'} component={Record} />
+                    <Route path={'product'} component={Product} onEnter={this.requireAuth}/>
+                    <Route path={'companny'} component={AboutUs}  onEnter={this.requireAuth}/>
+                    <Route path={'changepwd'} component={ChangePwd} onEnter={this.requireAuth}/>
+                    <Route path={'aboutme'} component={MyProduct}  onEnter={this.requireAuth}/>
+                    <Route path={'manage'} component={Manage} onEnter={this.requireAuth}/>
+                    <Route path={'recommend'} component={Guanjia} onEnter={this.requireAuth} />
+                    <Route path={'zixun'} component={ZiXUn}  onEnter={this.requireAuth}/>
+                    <Route path={'record'} component={Record} onEnter={this.requireAuth}/>
                 </Route>
                 <Route path={'/guanjia'} component={App}>
                     <IndexRedirect to="/guanjia/product" />
-                    <Route path={'/guanjia/product'} component={ProductGuan} />
-                    <Route path={'/guanjia/usermanage'} component={Usermanage} />
-                    <Route path={'/guanjia/gzmanage'} component={GuZi} />
-                    <Route path={'/guanjia/fzmanage'} component={FuZi} />
-                    <Route path={'/guanjia/zxput'} component={Zixunfb} />
-                    <Route path={'/guanjia/zxsc'} component={Zixunsc} />
-                    <Route path={'/guanjia/guanjiash'} component={ShouYi} />
+                    <Route path={'/guanjia/product'} component={ProductGuan}  onEnter={this.requireAuth2}/>
+                    <Route path={'/guanjia/usermanage'} component={Usermanage} onEnter={this.requireAuth2}/>
+                    <Route path={'/guanjia/gzmanage'} component={GuZi} onEnter={this.requireAuth2}/>
+                    <Route path={'/guanjia/fzmanage'} component={FuZi} onEnter={this.requireAuth2}/>
+                    <Route path={'/guanjia/zxput'} component={Zixunfb}  onEnter={this.requireAuth2}/>
+                    <Route path={'/guanjia/zxsc'} component={Zixunsc} onEnter={this.requireAuth2}/>
+                    <Route path={'/guanjia/guanjiash'} component={ShouYi} onEnter={this.requireAuth2}/>
                 </Route>
                 <Route path={'/manager'} component={App}>
                     <IndexRedirect to="/manager/salerswd" />
-                    <Route path={'/manager/salerswd'} component={SalerWD} />
-                    <Route path={'/manager/editsalers'} component={EditSaler} />
-                    <Route path={'/manager/prodwithdraw'} component={ProdWithdraw}/>
-                    <Route path={'/manager/rewardwithdraw'} component={RewardWithdraw}/>
-                    <Route path={'/manager/managerself'} component={Managerself}/>
+                    <Route path={'/manager/salerswd'} component={SalerWD}  onEnter={this.requireAuth3}/>
+                    <Route path={'/manager/editsalers'} component={EditSaler}   onEnter={this.requireAuth3}/>
+                    <Route path={'/manager/prodwithdraw'} component={ProdWithdraw}   onEnter={this.requireAuth3}/>
+                    <Route path={'/manager/rewardwithdraw'} component={RewardWithdraw}   onEnter={this.requireAuth3}/>
+                    <Route path={'/manager/managerself'} component={Managerself}   onEnter={this.requireAuth3}/>
                 </Route>
                 <Route path={'/userlogin'} component={LoginPage}/>
                 <Route path={'/regist'} component={Regists}/>

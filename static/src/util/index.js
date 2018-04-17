@@ -40,7 +40,6 @@ export const getTime = () => {
         month = `0${date.getMonth()+1}`
     }else {
         month = date.getMonth()+1;
-
     }
     let day;
     if(date.getDate() < 10) {

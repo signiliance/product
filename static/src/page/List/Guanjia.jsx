@@ -138,7 +138,8 @@ class Guanjia extends Component {
         guanjia({userid: userid}).then((data)=>{
             if(data.code === 200){
                 this.setState({
-                    list: data.list
+                    list: data.list,
+                    guanjiaphone: data.guanjiaphone,
                 })
                 if(data.dangerlist !== ''){
                     this.setState({
@@ -193,6 +194,11 @@ class Guanjia extends Component {
             buyProdId: prodid
         })
     }
+
+    getGuanjiaphone = () => {
+        Base.ModInfo('管家电话',`${this.state.guanjiaphone}`);
+    }
+
     renderModal = () => {
         return(
             <Modal title="购买提醒"
@@ -213,7 +219,8 @@ class Guanjia extends Component {
             <div>
             {this.state.list &&
             <div>
-            <div className='content' style={{marginTop:15,fontSize: 20,color: 'red'}}>管家推荐产品</div>
+            <div className='content' style={{marginTop:15,fontSize: 20,color: 'red'}}>管家推荐产品 <span style={{marginLeft: 15,fontSize: 16}}>（如果没有喜欢产品，可联系管家，获取私人订制服务）</span></div>
+                <div className='content'><Button type='primary' onClick={this.getGuanjiaphone}>联系管家</Button></div>
             <div className='content'><Table
                 style={{marginTop: 15}}
                 columns={this.colum}

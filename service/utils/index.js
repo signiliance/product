@@ -6,6 +6,24 @@ class Utils {
         let date = new Date();
         return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
     }
+    getnowtime() {
+        const date = new Date();
+        const year = date.getFullYear();
+        let month;
+        if(date.getMonth() < 9) {
+            month = `0${date.getMonth()+1}`
+        }else {
+            month = date.getMonth()+1;
+        }
+        let day;
+        if(date.getDate() < 10) {
+            day = `0${date.getDate()}`;
+        }
+        else {
+            day = date.getDate();
+        }
+        return `${year}${month}${day}`
+    }
     cookieSet(ctx,name,value) {
         ctx.cookies.set(name,value,{
             path: '/',

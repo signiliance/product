@@ -68,7 +68,7 @@ class Controller {
                 res.message = '无权限';
                 return res;
             } else {
-                let sql = 'select * from products where dangertype<4';
+                let sql = 'select * from products where dangertype<4 and endbuytime>='+`${parseInt(Util.getnowtime())}`;
                 res.code = 200;
                 res.message = 'success';
                 res.list = await DBhandle.query(sql);
@@ -167,7 +167,7 @@ class Controller {
             let sqlData = await DBhandle.query(sql);
             res.code = 200;
             res.memoney = sqlData[0].ownmoney;
-            let sql1 = 'select prodid,buytime,buymoney,prodincome,needbuytime,dingdanid from userprods where userid='+`${req.userid}`;
+            let sql1 = 'select prodid,buytime,buymoney,prodincome,needbuytime,dingdanid from userprods where userid='+`${req.userid}`+' ORDER BY buytime DESC LIMIT 501';
             let sqlData1 = await DBhandle.query(sql1);
             for(let i = 0;i<sqlData1.length;i++){
                 let sql3 = 'select prodname from products where prodid='+`${sqlData1[i].prodid}`;
@@ -268,9 +268,6 @@ class Controller {
                         time: Util.getNowTime()
                     }
                     await DBhandle.query(sql9,params9);
-                    let sql10 = 'select ownid from products where prodid='+`${req.prodid}`;
-                    let sqlData10 = await DBhandle.query(sql10);
-                    let sql11 = 'select '
                 }else {
                     let sql2 = 'select ownmoney from customers where cmid='+`${req.userid}`;
                     let sqlData2 = await DBhandle.query(sql2);
@@ -370,8 +367,9 @@ class Controller {
         try {
             let req = ctx.request.body;
             let res = {};
-            let sql = 'select * from records where userid='+`${req.userid}`;
-            let sqlData = await DBhandle.query(sql);
+            let sql = 'select * from records where userid=?  ORDER BY time DESC LIMIT 501';
+            let params = [req.userid];
+            let sqlData = await DBhandle.query(sql,params);
             res.list = sqlData;
             res.code = 200;
             res.message = 'success';
@@ -387,15 +385,18 @@ class Controller {
         try {
             let req = ctx.request.body;
             let res = {};
-            let sql1 = 'select cmtype from customers where cmid='+`${req.userid}`;
+            let sql1 = 'select cmtype,salerid from customers where cmid='+`${req.userid}`;
             let sqlData1 = await DBhandle.query(sql1);
             if(sqlData1[0].cmtype === 3){
                 let sql2 = 'select * from products where dangertype=4';
                 let sqlData2 = await DBhandle.query(sql2);
                 res.dangerlist = sqlData2;
             }
-            let sql3 = 'select * from products where dangertype=5';
+            let sql3 = 'select * from products where dangertype=5 and ownid='+`${sqlData1[0].salerid}`;
             let sqlData3 = await DBhandle.query(sql3);
+            let sql4 = 'select userphone from users where userid='+`${sqlData1[0].salerid}`;
+            let sqlData4 = await DBhandle.query(sql4);
+            res.guanjiaphone = sqlData4[0].userphone;
             res.list = sqlData3;
             res.code = 200;
             res.message = 'success';
