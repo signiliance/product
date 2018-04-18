@@ -154,20 +154,6 @@ class ProduceIndex extends Component {
             <div>
                 <Row>
                     <Col span = {12}>
-                        <div className='content' style = {{fontSize: 16,marginTop: 40,overflow:'hidden'}}>
-                            平台成立超过<span style={{fontSize: 26,color: 'red'}}>11</span>年,超过<span style={{fontSize: 26,color: 'red'}}>98</span>%的平台，理财用户超过<span style={{fontSize: 26,color: 'red'}}>2000</span>万，超过<span style={{fontSize: 26,color: 'red'}}>98</span>%的平台<br/>
-                            <span style={{float:'right',color:'red',fontSize:12}}>数据提取于2018年1月</span>
-                        </div>
-                    </Col>
-                    <Col span = {12}>
-                        <div className='content' style = {{fontSize: 16,marginTop: 40,marginLeft:20,overflow:'hidden'}}>
-                            促成理财<span style={{fontSize: 26,color: 'red'}}>12689</span>万，超过<span style={{fontSize: 26,color: 'red'}}>99</span>%平台，用户受益不低于<span style={{fontSize: 26,color: 'red'}}>5</span>%，高于<span style={{fontSize: 26,color: 'red'}}>99</span>%平台<br/>
-                            <span style={{float:'right',color:'red',fontSize:12}}>数据提取于2018年1月</span>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span = {12}>
                         <div className='content' style = {{fontSize: 16,marginTop: 40,overflow:'hidden',textAlign:'center',lineHeight: 2}}>
                             <span style={{color:'red',fontSize:26,lineHeight:3}}>三大顶级战略合作</span><br/>
                             IDG   摩根士丹利   凯鹏华盈<br/>

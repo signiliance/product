@@ -69,10 +69,18 @@ class SiderManager extends Component {
                     </SubMenu>
                     <SubMenu  key = '/manager/prodwithdraw'  title={<span><Icon type="appstore" /><span>流水</span></span>}>
                         <Menu.Item key="/manager/prodwithdraw">
-                             <Link to={'/manager/prodwithdraw'}><Icon type="appstore" /><span className="nav-text">销售流水</span></Link>
+                             <Link to={'/manager/prodwithdraw'}><Icon type="bars" /><span className="nav-text">销售流水</span></Link>
                         </Menu.Item>
                         <Menu.Item key="/manager/rewardwithdraw">
-                            <Link to={'/manager/rewardwithdraw'}><Icon type="appstore" /><span className="nav-text">奖励流水</span></Link>
+                            <Link to={'/manager/rewardwithdraw'}><Icon type="bars" /><span className="nav-text">奖励流水</span></Link>
+                        </Menu.Item>
+                    </SubMenu>
+                    <SubMenu  key = '/manager/reportfb'  title={<span><Icon type="appstore" /><span>运营报告</span></span>}>
+                        <Menu.Item key="/manager/reportfb">
+                            <Link to={'/manager/reportfb'}><Icon type="bars" /><span className="nav-text">报告发布</span></Link>
+                        </Menu.Item>
+                        <Menu.Item key="/manager/reportsc">
+                            <Link to={'/manager/reportsc'}><Icon type="bars" /><span className="nav-text">报告管理</span></Link>
                         </Menu.Item>
                     </SubMenu>
                     <Menu.Item key="/manager/managerself">

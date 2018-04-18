@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Modal,Table,Button,message} from 'antd';
 import listUtil from "../../List/listUtil";
-import {getguanjiazixun,guanjiazixunsc} from "../../../fetch";
+import {getmreport,reportsc} from "../../../fetch";
 import {getCookie} from "../../../util";
 
-class Zixunsc extends Component{
+class Reportsc extends Component{
     state = {
         list: [],
         visible: false
@@ -12,16 +12,16 @@ class Zixunsc extends Component{
 
     colums = [
         {
-            title: '资讯title',
-            dataIndex: 'zixuntitle',
-            key: 'zixuntitle',
+            title: '报告title',
+            dataIndex: 'reporttitle',
+            key: 'reporttitle',
         },
         {
             title: '操作',
             dataIndex: 'oper',
             key: 'oper',
             render: (text, record) => (
-                <Button type='primary' onClick={this.shanchuzixun.bind(this,record.zixunid,record.zixuntitle)}>删除</Button>
+                <Button type='primary' onClick={this.shanchuzixun.bind(this,record.reportid,record.reporttitle)}>删除</Button>
             ),
         }
     ]
@@ -31,16 +31,16 @@ class Zixunsc extends Component{
     }
 
     getzixunlist = () =>{
-       const userid = getCookie('userid');
-       getguanjiazixun({userid: userid}).then((data)=>{
-           if(data.code === 200){
-               this.setState({
-                   list: data.list
-               })
-           }else{
-               message.error(data.message);
-           }
-       }).catch(err => console.log(err));
+        const userid = getCookie('userid');
+        getmreport({userid: userid}).then((data)=>{
+            if(data.code === 200){
+                this.setState({
+                    list: data.list
+                })
+            }else{
+                message.error(data.message);
+            }
+        }).catch(err => console.log(err));
     }
 
     shanchuzixun = (id,title) => {
@@ -59,7 +59,7 @@ class Zixunsc extends Component{
         this.setState({
             visible: false
         })
-        guanjiazixunsc({zixunid: this.state.zixunid}).then((data)=>{
+        reportsc({reportid: this.state.zixunid}).then((data)=>{
             if(data.code === 200){
                 message.success(data.message);
                 this.getzixunlist();
@@ -99,4 +99,4 @@ class Zixunsc extends Component{
     }
 }
 
-export default Zixunsc;
+export default Reportsc;

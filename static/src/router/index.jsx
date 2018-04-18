@@ -5,6 +5,7 @@ import NotFound from '../page/NotFound/index';
 import App from '../page/index';
 import Product from '../page/List/index';
 import AboutUs from '../page/companny/index';
+import AboutCom from '../page/companny/aboutus/index';
 import ChangePwd from '../page/Aboutme/ChangePwd';
 import MyProduct from '../page/Aboutme/MyProduct';
 import Manage from '../page/Manage/index'
@@ -25,6 +26,12 @@ import ProdWithdraw from '../page/managers/withdraw/prodwithdraw'
 import Regists from '../page/registered/index';
 import Managerself from '../page/managers/managerself/index'
 import { getCookie } from "../util/index";
+import Honors from "../page/companny/honors";
+import Lianxi from "../page/companny/Lianxi";
+import Report from "../page/zixun/report";
+import Reportfb from "../page/managers/report/reportfabu";
+import Reportsc from "../page/managers/report/reportsc";
+import Fangan from "../page/guanjia/fangan";
 
 export default class Routers extends Component {
     requireAuth = (permission, component) => {
@@ -55,11 +62,15 @@ export default class Routers extends Component {
                     <IndexRedirect to="/product" />
                     <Route path={'product'} component={Product} onEnter={this.requireAuth}/>
                     <Route path={'companny'} component={AboutUs}  onEnter={this.requireAuth}/>
+                    <Route path={'aboutcom'} component={AboutCom}  onEnter={this.requireAuth}/>
+                    <Route path={'lianxi'} component={Lianxi}  onEnter={this.requireAuth}/>
+                    <Route path={'honors'} component={Honors}  onEnter={this.requireAuth}/>
                     <Route path={'changepwd'} component={ChangePwd} onEnter={this.requireAuth}/>
                     <Route path={'aboutme'} component={MyProduct}  onEnter={this.requireAuth}/>
                     <Route path={'manage'} component={Manage} onEnter={this.requireAuth}/>
                     <Route path={'recommend'} component={Guanjia} onEnter={this.requireAuth} />
                     <Route path={'zixun'} component={ZiXUn}  onEnter={this.requireAuth}/>
+                    <Route path={'report'} component={Report}  onEnter={this.requireAuth}/>
                     <Route path={'record'} component={Record} onEnter={this.requireAuth}/>
                 </Route>
                 <Route path={'/guanjia'} component={App}>
@@ -71,6 +82,7 @@ export default class Routers extends Component {
                     <Route path={'/guanjia/zxput'} component={Zixunfb}  onEnter={this.requireAuth2}/>
                     <Route path={'/guanjia/zxsc'} component={Zixunsc} onEnter={this.requireAuth2}/>
                     <Route path={'/guanjia/guanjiash'} component={ShouYi} onEnter={this.requireAuth2}/>
+                    <Route path={'/guanjia/fanganfb'} component={Fangan} onEnter={this.requireAuth2}/>
                 </Route>
                 <Route path={'/manager'} component={App}>
                     <IndexRedirect to="/manager/salerswd" />
@@ -79,6 +91,8 @@ export default class Routers extends Component {
                     <Route path={'/manager/prodwithdraw'} component={ProdWithdraw}   onEnter={this.requireAuth3}/>
                     <Route path={'/manager/rewardwithdraw'} component={RewardWithdraw}   onEnter={this.requireAuth3}/>
                     <Route path={'/manager/managerself'} component={Managerself}   onEnter={this.requireAuth3}/>
+                    <Route path={'/manager/reportfb'} component={Reportfb}   onEnter={this.requireAuth3}/>
+                    <Route path={'/manager/reportsc'} component={Reportsc}   onEnter={this.requireAuth3}/>
                 </Route>
                 <Route path={'/userlogin'} component={LoginPage}/>
                 <Route path={'/regist'} component={Regists}/>

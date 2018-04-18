@@ -349,7 +349,7 @@ class Controller {
     async zixun() {
         try {
             let res = {};
-            let sql = 'select * from zixun';
+            let sql = 'select * from zixun ORDER BY zixunid DESC LIMIT 501';
             let sqlData = await DBhandle.query(sql);
             res.list = sqlData;
             res.code = 200;
@@ -464,6 +464,23 @@ class Controller {
             return res;
         }
 
+    }
+    async reportlist () {
+        try {
+            let res = {};
+            let sql = 'select * from operreport ORDER BY reportid DESC LIMIT 501';
+            let sqlData = await DBhandle.query(sql);
+            res.list = sqlData;
+            res.code = 200;
+            res.message = 'success';
+            return res;
+
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
     }
 }
 

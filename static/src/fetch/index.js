@@ -384,3 +384,75 @@ export const managertixian= (form = {}) => {
         body: buildParams(form)
     }).then((res) => res.json()).catch(err => console.log(err))
 }
+export const report = () => {
+    return fetch(API.getreport,{
+        credentials: 'include',
+        method: 'GET',
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+export const reportfabu= (form = {}) => {
+    return fetch(API.reportfabu,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+export const getmreport= (form = {}) => {
+    return fetch(API.getmanagerreport,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+export const reportsc= (form = {}) => {
+    return fetch(API.reportsc,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+export const guanjiagetprod = (form={}) => {
+    return fetch(API.guanjiagetallprod,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+export const fanganfabu = (form={}) => {
+    return fetch(API.fabuzuheprod,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}
+export const fanganshanchu = (form={}) => {
+    return fetch(API.shanchuzuheprod,{
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+            "Origin": '*',
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: buildParams(form)
+    }).then((res) => res.json()).catch(err => console.log(err))
+}

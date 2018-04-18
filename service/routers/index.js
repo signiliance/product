@@ -108,6 +108,27 @@ module.exports = function () {
         if(ctx.url === '/managermoney' && ctx.method === 'POST'){
             ctx.body = await Manager.getmanagermoney(ctx);
         }
+        if(ctx.url === '/reportlist' && ctx.method === 'GET'){
+            ctx.body = await Controller.reportlist();
+        }
+        if(ctx.url === '/reportfabu' && ctx.method === 'POST'){
+            ctx.body = await Manager.reportfabu(ctx);
+        }
+        if(ctx.url === '/managerreportlist' && ctx.method === 'POST'){
+            ctx.body = await Manager.reportlist(ctx);
+        }
+        if(ctx.url === '/managerreportsc' && ctx.method === 'POST'){
+            ctx.body = await Manager.reportsc(ctx);
+        }
+        if(ctx.url === '/guanjiegetallprod' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.getallprod(ctx);
+        }
+        if(ctx.url === '/fabulicaifangan' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.fabuzuhe(ctx);
+        }
+        if(ctx.url === '/zuheprodshanchu' && ctx.method === 'POST'){
+            ctx.body = await Guanjia.shanchuzuhe(ctx);
+        }
         await next();
     }
 }

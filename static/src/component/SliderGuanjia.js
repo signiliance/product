@@ -69,6 +69,9 @@ class SiderBarGuanjia extends Component {
                         <Menu.Item key="/guanjia/fzmanage">
                             <Link to={'/guanjia/fzmanage'}><Icon type="bars" /><span className="nav-text">浮资产品</span></Link>
                         </Menu.Item>
+                        <Menu.Item key="/guanjia/fanganfb">
+                            <Link to={'/guanjia/fanganfb'}><Icon type="bars" /><span className="nav-text">发布方案</span></Link>
+                        </Menu.Item>
                     </SubMenu>
                     <Menu.Item key="/guanjia/usermanage">
                         <Link to={'/guanjia/usermanage'}><Icon type="appstore" /><span className="nav-text">用户管理</span></Link>

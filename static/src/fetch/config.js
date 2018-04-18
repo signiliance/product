@@ -69,5 +69,20 @@ export default {
     //获取经理余额
     getmanagermoney: api + '/managermoney',
     //经理提现
-    managertixian: api+ '/maagertixian'
+    managertixian: api+ '/maagertixian',
+    //获取运营报告
+    getreport: api + '/reportlist',
+    //运营报告发布
+    reportfabu: api+ '/reportfabu',
+    //获取经理发布的运营报告
+    getmanagerreport: api + '/managerreportlist',
+    //删除报告
+    reportsc: api + '/managerreportsc',
+    //管家获取全部产品列表
+    guanjiagetallprod: api+'/guanjiegetallprod',
+    //发布理财方案
+    fabuzuheprod: api+'/fabulicaifangan',
+    //删除理财方案
+    shanchuzuheprod: api + '/zuheprodshanchu'
+
 }

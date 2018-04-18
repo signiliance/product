@@ -274,6 +274,79 @@ class Guanjia {
         }
     }
 
+    async getallprod (ctx) {
+        try {
+            let req = ctx.request.body;
+            let res = {};
+            let sql1 = 'select * from zuheprod where ownid='+`${req.userid}`;
+            let sqlData1 = await DBhandle.query(sql1);
+            for(let i=0;i<sqlData1.length;i++){
+                let sql2 = 'select prodname from products where prodid='+`${sqlData1[i].prod1}`
+                let sqlData2 = await DBhandle.query(sql2);
+                sqlData1[i].prod1name = sqlData2[0].prodname;
+                let sql3 = 'select prodname from products where prodid='+`${sqlData1[i].prod2}`
+                let sqlData3 = await DBhandle.query(sql3);
+                sqlData1[i].prod2name = sqlData3[0].prodname;
+                let sql4 = 'select prodname from products where prodid='+`${sqlData1[i].prod3}`
+                let sqlData4 = await DBhandle.query(sql4);
+                sqlData1[i].prod3name = sqlData4[0].prodname;
+            }
+            res.prodlist = sqlData1;
+            let sql = 'select prodid,prodname from products where dangertype<5';
+            let sqlData = await DBhandle.query(sql);
+            res.list = sqlData;
+            res.code = 200;
+            res.message = 'success';
+            return res;
+
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+
+    }
+
+    async fabuzuhe (ctx) {
+        try {
+            let req = ctx.request.body;
+            let res = {};
+            let sql = 'insert into zuheprod set ?';
+            let params = {
+                ownid: req.userid,
+                prod1: req.prod1id,
+                prod2: req.prod2id,
+                prod3: req.prod3id,
+            }
+            await DBhandle.query(sql,params);
+            res.code = 200;
+            res.message = '发布成功';
+            return res;
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+    }
+
+    async shanchuzuhe (ctx) {
+        try {
+            let req = ctx.request.body;
+            let res = {};
+            let sql = 'delete from zuheprod where zuheid='+`${req.zuheid}`;
+            await DBhandle.query(sql);
+            res.code = 200;
+            res.message = '删除成功';
+            return res;
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+    }
 }
 
 module.exports = new Guanjia();

@@ -200,6 +200,65 @@ class Manager {
             return res;
         }
     }
+    async reportfabu (ctx) {
+        try {
+            let req = ctx.request.body;
+            let res = {};
+            let sql = 'insert into operreport set ?';
+            let params = {
+                ownid: req.userid,
+                reporttitle: req.zixuntitle,
+                reportname: req.zixuncontent,
+                createtime: Util.getNowTime()
+            }
+            await DBhandle.query(sql,params);
+            res.code = 200;
+            res.message = '发步成功';
+            return res;
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+
+    }
+
+    async reportlist (ctx) {
+        try {
+            let res = {};
+            let sql = 'select * from operreport where ownid='+`${ctx.request.body.userid}`+' ORDER BY reportid DESC LIMIT 501';
+            let sqlData = await DBhandle.query(sql);
+            res.list = sqlData;
+            res.code = 200;
+            res.message = 'success';
+            return res;
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+
+    }
+
+    async reportsc (ctx) {
+        try {
+            let req = ctx.request.body;
+            let res = {};
+            let sql = 'delete from operreport where reportid='+`${req.reportid}`;
+            await DBhandle.query(sql);
+            res.code = 200;
+            res.message = '删除成功'
+            return res;
+
+        } catch (e) {
+            let res = {};
+            res.code = 686;
+            res.message = '数据库异常';
+            return res;
+        }
+    }
 }
 
 module.exports = new Manager();
