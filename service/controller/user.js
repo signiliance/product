@@ -68,7 +68,7 @@ class Controller {
                 res.message = '无权限';
                 return res;
             } else {
-                let sql = 'select * from products where dangertype<4 and endbuytime>='+`${parseInt(Util.getnowtime())}`;
+                let sql = 'select * from products where dangertype<5 and endbuytime>='+`${parseInt(Util.getnowtime())}`;
                 res.code = 200;
                 res.message = 'success';
                 res.list = await DBhandle.query(sql);
@@ -388,9 +388,25 @@ class Controller {
             let sql1 = 'select cmtype,salerid from customers where cmid='+`${req.userid}`;
             let sqlData1 = await DBhandle.query(sql1);
             if(sqlData1[0].cmtype === 3){
-                let sql2 = 'select * from products where dangertype=4';
-                let sqlData2 = await DBhandle.query(sql2);
-                res.dangerlist = sqlData2;
+                // let sql2 = 'select * from products where dangertype=4';
+                // let sqlData2 = await DBhandle.query(sql2);
+                // res.dangerlist = sqlData2;
+                let sql5 = 'select salerid from customers where cmid='+`${req.userid}`;
+                let sqlData5 = await DBhandle.query(sql5);
+                let sql6 = 'select * from zuheprod where ownid='+`${sqlData5[0].salerid}`;
+                let sqlData6 = await DBhandle.query(sql6);
+                for(let i=0;i<sqlData6.length;i++){
+                    let sql7 = 'select * from products where prodid='+`${sqlData6[i].prod1}`
+                    let sqlData7 = await DBhandle.query(sql7);
+                    sqlData6[i].prod1 = sqlData7[0];
+                    let sql8 = 'select * from products where prodid='+`${sqlData6[i].prod2}`
+                    let sqlData8 = await DBhandle.query(sql8);
+                    sqlData6[i].prod2 = sqlData8[0];
+                    let sql9 = 'select * from products where prodid='+`${sqlData6[i].prod3}`
+                    let sqlData9 = await DBhandle.query(sql9);
+                    sqlData6[i].prod3 = sqlData9[0];
+                }
+                res.zuhefangan = sqlData6;
             }
             let sql3 = 'select * from products where dangertype=5 and ownid='+`${sqlData1[0].salerid}`;
             let sqlData3 = await DBhandle.query(sql3);

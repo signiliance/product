@@ -11,67 +11,6 @@ class Guanjia extends Component {
         list: [],
     }
 
-    colums = [
-        {
-            title: '产品代号',
-            dataIndex: 'prodid',
-            key: 'prodid',
-            render: (text, record) => (
-                <span style={{color:'red'}}>{text}</span>
-            ),
-        },
-        {
-            title: '产品名称',
-            dataIndex: 'prodname',
-            key: 'prodname'
-        },
-        {
-            title: '产品类型',
-            dataIndex: 'prodtype',
-            key: 'prodtype',
-            render:(text) => (
-                <span>{listUtil.prod(text)}</span>
-            )
-        },
-        {
-            title: '预期收益',
-            dataIndex: 'income',
-            key: 'income',
-            render: (text) => ( <span>{`${text-1}%`}</span>)
-        },
-        {
-            title: '购买时长',
-            dataIndex: 'needbuytime',
-            key: 'needbuytime',
-            render: (text) => (
-                <span>{text}个月</span>
-            )
-        },
-        {
-            title: '风险',
-            dataIndex: 'dangertype',
-            key: 'dangertype',
-            render:(text) => (
-                <span>{listUtil.table(text)}</span>
-            )
-        },
-        {
-            title: '可购买日期',
-            dataIndex: 'needTime',
-            key: 'needTime',
-            render: (text,record) => (
-                <span>{listUtil.time(record.startbuytime,record.endbuytime)}</span>
-            )
-        },
-        {
-            title: '购买',
-            dataIndex: 'buy',
-            key: 'buy',
-            render: (text, record) => (
-                <Button type='primary' onClick={this.buy.bind(this,record.prodname,record.prodid)}>购买</Button>
-            ),
-        }
-    ]
     colum = [
         {
             title: '产品代号',
@@ -141,9 +80,9 @@ class Guanjia extends Component {
                     list: data.list,
                     guanjiaphone: data.guanjiaphone,
                 })
-                if(data.dangerlist !== ''){
+                if(data.zuhefangan !== ''){
                     this.setState({
-                        dangerlist: data.dangerlist
+                        zuhefangan: data.zuhefangan
                     })
                 }
             }else {
@@ -214,7 +153,22 @@ class Guanjia extends Component {
         )
     }
 
+    renderFangan = () => {
+        return (
+            <div>
+                {this.state.zuhefangan.map((item,index)=>{
+                    <div><p>方案{index}</p>
+                    <p>产品1：{item.prod1.prodname},可购买时间段：{listUtil.time(item.prod1.startbuytime,item.prod1.endbuytime)},收益：{item.prod1.income-1}%,需要购买时间：{item.prod1.needbuytime}个月</p>
+                        <p>产品2：{item.prod2.prodname},可购买时间段：{listUtil.time(item.prod2.startbuytime,item.prod2.endbuytime)},收益：{item.prod2.income-1}%,需要购买时间：{item.prod2.needbuytime}个月</p>
+                        <p>产品3：{item.prod3.prodname},可购买时间段：{listUtil.time(item.prod3.startbuytime,item.prod3.endbuytime)},收益：{item.prod3.income-1}%,需要购买时间：{item.prod3.needbuytime}个月</p>
+                    </div>
+                })}
+            </div>
+        )
+    }
+
     render () {
+        console.log(this.state.zuhefangan)
         return (
             <div>
             {this.state.list &&
@@ -226,14 +180,18 @@ class Guanjia extends Component {
                 columns={this.colum}
                 dataSource={this.state.list}
             ></Table></div></div>}
-            {this.state.dangerlist &&
+            {this.state.zuhefangan &&
             <div>
-                <div className='content' style={{marginTop:15,fontSize: 20,color: 'red'}}>高级用户专属产品</div>
-                <div className='content'><Table
-                style={{marginTop: 15}}
-                columns={this.colums}
-                dataSource={this.state.dangerlist}
-            ></Table></div></div>}
+                <div className='content' style={{marginTop:15,fontSize: 20,color: 'red'}}>高级用户专属方案</div>
+                <div className='content'>
+                    {this.state.zuhefangan.map((item,index)=>{
+                       return( <div><p style={{color:'red'}}>方案{index+1}</p>
+                            <p>产品1：{item.prod1.prodname},可购买时间段：{listUtil.time(item.prod1.startbuytime,item.prod1.endbuytime)},收益：{item.prod1.income-1}%,需要购买时间：{item.prod1.needbuytime}个月</p>
+                            <p>产品2：{item.prod2.prodname},可购买时间段：{listUtil.time(item.prod2.startbuytime,item.prod2.endbuytime)},收益：{item.prod2.income-1}%,需要购买时间：{item.prod2.needbuytime}个月</p>
+                            <p>产品3：{item.prod3.prodname},可购买时间段：{listUtil.time(item.prod3.startbuytime,item.prod3.endbuytime)},收益：{item.prod3.income-1}%,需要购买时间：{item.prod3.needbuytime}个月</p>
+                        </div>
+                       )})}
+                </div></div>}
                 {this.renderModal()}
             </div>
         )
