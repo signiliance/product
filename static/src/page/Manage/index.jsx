@@ -10,6 +10,7 @@ import {getCookie, getTime, isInt} from '../../util';
 import MangeType from './MangeType';
 import listUtil from "../List/listUtil";
 import Base from "../../component/Base";
+import img from '../../style/imgs/1111111111.jpg'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -182,6 +183,9 @@ class Managee extends Component {
         };
         return (
             <div style={{marginTop: 15}}>
+                <Row>
+                    <img src={img} alt=""/>
+                </Row>
                 <div className="content">
                     <Form onSubmit={this.handleSubmit}>
                     <Row>

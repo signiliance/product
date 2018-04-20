@@ -7,6 +7,7 @@ import {getCookie,getTime} from "../../util";
 import TableCom from '../List/listUtil'
 import myUtil from './util';
 import Base from '../../component/Base'
+import img from '../../style/imgs/1111111111.jpg'
 
 class MyProduct extends Component {
 
@@ -250,6 +251,9 @@ class MyProduct extends Component {
     render () {
         return(
             <div>
+                <Row>
+                    <img src={img} alt=""/>
+                </Row>
                 <div style={{display:'flex',marginTop: 15}}>
                     <div className="content" style={{width:'45%',height:150}}>
                         <div style={{textAlign:'center'}}>数据看板</div>

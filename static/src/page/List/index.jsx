@@ -4,7 +4,8 @@ import { buyprod,getprodlist } from '../../fetch/index';
 import { getTime } from '../../util';
 import listUtil from './listUtil';
 import  Base  from '../../component/Base.js';
-import {getCookie,isInt} from '../../util'
+import {getCookie,isInt} from '../../util';
+import img from '../../style/imgs/1111111111.jpg'
 
 class ProduceIndex extends Component {
     state = {
@@ -152,6 +153,9 @@ class ProduceIndex extends Component {
     render() {
         return (
             <div>
+                <Row>
+                    <img src={img} alt=""/>
+                </Row>
                 <Row>
                     <Col span = {12}>
                         <div className='content' style = {{fontSize: 16,marginTop: 40,overflow:'hidden',textAlign:'center',lineHeight: 2}}>

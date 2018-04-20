@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Modal,Button,Table,message,Input} from 'antd';
+import {Modal,Button,Table,message,Input,Row} from 'antd';
 import listUtil from "./listUtil";
 import {getCookie, getTime, isInt} from "../../util";
 import {guanjia} from '../../fetch/index'
 import {buyprod} from "../../fetch";
 import Base from "../../component/Base";
+import img from '../../style/imgs/1111111111.jpg'
 
 class Guanjia extends Component {
     state = {
@@ -171,6 +172,9 @@ class Guanjia extends Component {
         console.log(this.state.zuhefangan)
         return (
             <div>
+                <Row>
+                    <img src={img} alt=""/>
+                </Row>
             {this.state.list &&
             <div>
             <div className='content' style={{marginTop:15,fontSize: 20,color: 'red'}}>管家推荐产品 <span style={{marginLeft: 15,fontSize: 16}}>（如果没有喜欢产品，可联系管家，获取私人订制服务）</span></div>

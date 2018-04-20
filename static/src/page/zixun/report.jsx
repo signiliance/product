@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {report} from "../../fetch";
-import {Divider, message} from 'antd'
+import {Divider, message, Row} from 'antd';
+import img from '../../style/imgs/22222222.png'
 
 class Report extends Component {
 
@@ -32,7 +33,12 @@ class Report extends Component {
 
     render ()  {
         return (
+            <div>
+                <Row>
+                    <img src={img} alt=""/>
+                </Row>
             <div className='content' style={{marginTop: 15}}>{this.renderZixun()}</div>
+            </div>
         )
     }
 }
