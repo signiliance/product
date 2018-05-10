@@ -295,6 +295,9 @@ class Controller {
                     let sql6 = 'select buytime,buymoney,prodincome,needbuytime from userprods where dingdanid='+`${req.dingdanid}`;
                     let sqlData6 = await DBhandle.query(sql6);
                     let yuefen = Util.yuefen(req.nowtime,sqlData6[0].buytime.toString());
+                    if(yuefen > sqlData6[0].needbuytime){
+                        yuefen = sqlData6[0].needbuytime;
+                    }
                     let shouyi1 = (sqlData6[0].buymoney*(sqlData6[0].prodincome-1)*(yuefen/sqlData6[0].needbuytime))/100;
                     let shouyi = parseInt(shouyi1);
                     res.shouyi = `${shouyi}元`;
@@ -312,7 +315,7 @@ class Controller {
                     let params9 = {
                         userid: req.userid,
                         opertype: 2,
-                        opermoney: req.buymoney+shouyi1,
+                        opermoney: parseInt(req.buymoney)+shouyi,
                         prodid: req.prodid,
                         time: Util.getNowTime()
                     }
@@ -484,13 +487,74 @@ class Controller {
     async reportlist () {
         try {
             let res = {};
-            let sql = 'select * from operreport ORDER BY reportid DESC LIMIT 501';
-            let sqlData = await DBhandle.query(sql);
-            res.list = sqlData;
+            res.list = [];
+            let data = {};
+            let sql1 = 'select * from userprods where buytime>20180401 and buytime<20180431 ORDER BY buymoney DESC LIMIT 501';
+            let sql2 = 'select * from userprods where buytime>20180501 and buytime<20180531 ORDER BY buymoney DESC LIMIT 501';
+            let sql3 = 'select * from userprods where buytime>20180601 and buytime<20180631 ORDER BY buymoney DESC LIMIT 501';
+            let sqlData1 = await DBhandle.query(sql1);
+            let sqlData2 = await DBhandle.query(sql2);
+            let sqlData3 = await DBhandle.query(sql3);
+            let oldmoney = 1;
+            data.allmoney = 0;
+            data.earnmoney = 0;
+            data.zengzhang = 0;
+            for(let i = 0;i<sqlData1.length;i++){
+                data.allmoney += sqlData1[i].buymoney;
+                data.earnmoney += (sqlData1[i].buymoney * (sqlData1[i].prodincome-1))/100;
+                data.account = sqlData1.length;
+                data.bigmoney = sqlData1[0].buymoney;
+            }
+            data.zengzhang = ((data.allmoney - oldmoney)/oldmoney)*100;
+            oldmoney = data.allmoney;
+            data.title = '2018年4月份运营报告';
+            res.list.push(data);
+            data = {};
+            data.allmoney = 0;
+            data.earnmoney = 0;
+            data.zengzhang = 0;
+            for(let i = 0;i<sqlData2.length;i++){
+                data.allmoney += sqlData2[i].buymoney;
+                data.earnmoney += (sqlData2[i].buymoney * (sqlData2[i].prodincome-1))/100;
+                data.account = sqlData2.length;
+                data.bigmoney = sqlData2[0].buymoney;
+            }
+            data.zengzhang = ((data.allmoney - oldmoney)/oldmoney)*100;
+            oldmoney = data.allmoney;
+            data.title = '2018年5月份运营报告';
+            res.list.push(data);
+            // data = {};
+            // data.allmoney = 0;
+            // data.earnmoney = 0;
+            // data.zengzhang = 0;
+            // for(let i = 0;i<sqlData3.length;i++){
+            //     data.allmoney += sqlData3[i].buymoney;
+            //     data.earnmoney += (sqlData3[i].buymoney * (sqlData3[i].prodincome-1))/100;
+            //     data.account = sqlData3.length;
+            //     data.bigmoney = sqlData3[0].buymoney;
+            // }
+            // data.zengzhang = ((data.allmoney - oldmoney)/oldmoney)*100;
+            // oldmoney = data.allmoney;
+            // res.list.push(data);
+            //console.log(res.list);
+            res.list.reverse();
+            let sql4 = 'select * from userprods ORDER BY buymoney DESC LIMIT 501'
+            let sqlData4 = await DBhandle.query(sql4);
+            res.all = 0;
+            for(let i = 0;i<sqlData4.length;i++){
+                res.all+=sqlData4[i].buymoney;
+            }
+            res.account = sqlData4.length;
+            res.bigmoney = sqlData4[0].buymoney;
+            let sql5 = 'select * from customers';
+            let sqlData5 = await DBhandle.query(sql5);
+            res.allmoney = 0;
+            for(let i=0;i<sqlData5.length;i++){
+                res.allmoney+=sqlData5[i].ownmoney;
+            }
             res.code = 200;
             res.message = 'success';
             return res;
-
         } catch (e) {
             let res = {};
             res.code = 686;

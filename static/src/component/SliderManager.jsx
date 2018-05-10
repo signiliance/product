@@ -75,17 +75,17 @@ class SiderManager extends Component {
                             <Link to={'/manager/rewardwithdraw'}><Icon type="bars" /><span className="nav-text">奖励流水</span></Link>
                         </Menu.Item>
                     </SubMenu>
-                    <SubMenu  key = '/manager/reportfb'  title={<span><Icon type="appstore" /><span>运营报告</span></span>}>
-                        <Menu.Item key="/manager/reportfb">
-                            <Link to={'/manager/reportfb'}><Icon type="bars" /><span className="nav-text">报告发布</span></Link>
-                        </Menu.Item>
-                        <Menu.Item key="/manager/reportsc">
-                            <Link to={'/manager/reportsc'}><Icon type="bars" /><span className="nav-text">报告管理</span></Link>
-                        </Menu.Item>
-                    </SubMenu>
-                    <Menu.Item key="/manager/managerself">
-                        <Link to={'/manager/managerself'}><Icon type="appstore" /><span className="nav-text">个人中心</span></Link>
-                    </Menu.Item>
+                    {/*<SubMenu  key = '/manager/reportfb'  title={<span><Icon type="appstore" /><span>运营报告</span></span>}>*/}
+                        {/*<Menu.Item key="/manager/reportfb">*/}
+                            {/*<Link to={'/manager/reportfb'}><Icon type="bars" /><span className="nav-text">报告发布</span></Link>*/}
+                        {/*</Menu.Item>*/}
+                        {/*<Menu.Item key="/manager/reportsc">*/}
+                            {/*<Link to={'/manager/reportsc'}><Icon type="bars" /><span className="nav-text">报告管理</span></Link>*/}
+                        {/*</Menu.Item>*/}
+                    {/*</SubMenu>*/}
+                    {/*<Menu.Item key="/manager/managerself">*/}
+                        {/*<Link to={'/manager/managerself'}><Icon type="appstore" /><span className="nav-text">个人中心</span></Link>*/}
+                    {/*</Menu.Item>*/}
                 </Menu>
             </Sider>
         )
