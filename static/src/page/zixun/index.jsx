@@ -24,7 +24,7 @@ class ZiXun extends Component {
         let data = [];
         this.state.list.map((item)=> {
                 data.push(
-                    <div><p style = {{fontSize: 20,color:'red'}}>{item.zixuntitle}</p>{item.zixuncontent}<Divider/></div>
+                    <div style = {{fontSize: 20}}><p style = {{fontSize: 20,color:'red'}}>{item.zixuntitle}</p>{item.zixuncontent}<Divider/></div>
                 )
             });
         return data;

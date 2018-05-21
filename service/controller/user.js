@@ -370,7 +370,7 @@ class Controller {
         try {
             let req = ctx.request.body;
             let res = {};
-            let sql = 'select * from records where userid=?  ORDER BY time DESC LIMIT 501';
+            let sql = 'select * from records where userid=?  ORDER BY recordid DESC LIMIT 501';
             let params = [req.userid];
             let sqlData = await DBhandle.query(sql,params);
             res.list = sqlData;

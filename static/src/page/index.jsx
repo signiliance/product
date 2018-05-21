@@ -7,6 +7,7 @@ import HeaderCustom from '../component/header'
 import 'antd/dist/antd.css';
 import '../index.css'
 import {getCookie} from "../util";
+import img from '../style/imgs/timg.jpg'
 
 
 const { Content, Footer }  = Layout;

@@ -170,10 +170,11 @@ class ProduceIndex extends Component {
                         </div>
                     </Col>
                 </Row>
-                <div className='content' style = {{marginTop: 20}}>
+                <div className='content' style = {{marginTop: 20,fontSize: 20}}>
                     {this.state.list && <Table
                         columns={this.colums}
                         dataSource={this.state.list}
+                        style={{fontSize: 20}}
                     ></Table>
                     }
                     {this.renderModal()}

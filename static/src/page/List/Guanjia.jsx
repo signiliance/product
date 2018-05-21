@@ -158,7 +158,7 @@ class Guanjia extends Component {
         return (
             <div>
                 {this.state.zuhefangan.map((item,index)=>{
-                    <div><p>方案{index}</p>
+                    <div style={{fontSize:'22px'}}><p>方案{index}</p>
                     <p>产品1：{item.prod1.prodname},可购买时间段：{listUtil.time(item.prod1.startbuytime,item.prod1.endbuytime)},收益：{item.prod1.income-1}%,需要购买时间：{item.prod1.needbuytime}个月</p>
                         <p>产品2：{item.prod2.prodname},可购买时间段：{listUtil.time(item.prod2.startbuytime,item.prod2.endbuytime)},收益：{item.prod2.income-1}%,需要购买时间：{item.prod2.needbuytime}个月</p>
                         <p>产品3：{item.prod3.prodname},可购买时间段：{listUtil.time(item.prod3.startbuytime,item.prod3.endbuytime)},收益：{item.prod3.income-1}%,需要购买时间：{item.prod3.needbuytime}个月</p>
@@ -183,13 +183,14 @@ class Guanjia extends Component {
                 style={{marginTop: 15}}
                 columns={this.colum}
                 dataSource={this.state.list}
+                style={{fontSize: 20}}
             ></Table></div></div>}
             {this.state.zuhefangan &&
             <div>
                 <div className='content' style={{marginTop:15,fontSize: 20,color: 'red'}}>高级用户专属方案</div>
                 <div className='content'>
                     {this.state.zuhefangan.map((item,index)=>{
-                       return( <div><p style={{color:'red'}}>方案{index+1}</p>
+                       return( <div style={{fontSize: 20}}><p style={{color:'red'}}>方案{index+1}</p>
                             <p>产品1：{item.prod1.prodname},可购买时间段：{listUtil.time(item.prod1.startbuytime,item.prod1.endbuytime)},收益：{item.prod1.income-1}%,需要购买时间：{item.prod1.needbuytime}个月</p>
                             <p>产品2：{item.prod2.prodname},可购买时间段：{listUtil.time(item.prod2.startbuytime,item.prod2.endbuytime)},收益：{item.prod2.income-1}%,需要购买时间：{item.prod2.needbuytime}个月</p>
                             <p>产品3：{item.prod3.prodname},可购买时间段：{listUtil.time(item.prod3.startbuytime,item.prod3.endbuytime)},收益：{item.prod3.income-1}%,需要购买时间：{item.prod3.needbuytime}个月</p>

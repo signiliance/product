@@ -49,15 +49,17 @@ class SiderBarGuanjia extends Component {
                 breakpoint="lg"
                 collapsed={this.props.collapsed}
                 style={{overflowY: 'auto'}}
+                style={{background:'#34AB9A'}}
             >
                 <div className="logo" style = {{textAlign:'center'}}>
-                    {<img src={logoImg} alt="ofo" style = {{marginTop: 15, marginBottom: 10}}/>}
+                    {<img src={logoImg} alt="ofo" style = {{marginTop: 15, marginBottom: 10,background:'#34AB9A'}}/>}
                 </div>
                 <Menu
                     onClick={this.menuClick}
                     theme="dark"
                     mode="inline"
                     selectedKeys={[selectedKey]}
+                    style={{background:'#34AB9A'}}
                 >
                     <SubMenu key = '/guanjia/product'  title={<span><Icon type="appstore" /><span>产品管理</span></span>}>
                         <Menu.Item key="/guanjia/product">
